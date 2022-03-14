@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="217" height="113.403" viewBox="0 0 217 113.403">
+  <g id="EmptyState" transform="translate(0.5 1.412)">
+    <path id="Background" d="M202,63a7,7,0,1,1,7,7A7,7,0,0,1,202,63Zm-62,7a7.037,7.037,0,0,1-1.5-.161A7.043,7.043,0,0,1,137,70H46a7,7,0,1,1,0-14H7A7,7,0,1,1,7,42H47a7,7,0,0,0,0-14H22a7,7,0,0,1,0-14H62A7,7,0,1,1,62,0h57a7,7,0,0,1,0,14h64a7,7,0,1,1,0,14h22a7,7,0,1,1,0,14H186a7,7,0,1,0,0,14h6a7,7,0,0,1,0,14Z" transform="translate(0 23)" fill="rgba(128,0,128,0.45)" stroke="rgba(128,0,128,0.45)" stroke-width="1"/>
+    <g id="Photo2" transform="translate(48.983 -0.013)">
+      <path id="Rectangle" d="M78.89,0H83a4,4,0,0,1,4,4V84a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4s0-5.115,0-6.875" transform="translate(98.418 87.157) rotate(172)" fill="#fff"/>
+      <path id="Rectangle-2" data-name="Rectangle" d="M17.823,88.725l-3.7.525a3.618,3.618,0,0,1-4.1-3.085l-10-71.925a3.646,3.646,0,0,1,3.1-4.107L74.17.037a3.618,3.618,0,0,1,4.1,3.085L79.125,9.3q.07.5,9.206,66.6a4.038,4.038,0,0,1-3.408,4.566l-.071.009Z" transform="translate(5 5)" fill="rgba(128,0,128,0.45)" stroke="rgba(128,0,128,0.45)" stroke-width="1"/>
+      <path id="Rectangle-3" data-name="Rectangle" d="M78.89,0H83a4,4,0,0,1,4,4V84a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4s0-5.115,0-6.875" transform="translate(98.418 87.157) rotate(172)" fill="none" stroke="rgba(128,0,128,0.45)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.5"/>
+      <path id="Line" d="M.25,0l.5,3.12" transform="translate(88.267 15.393)" fill="none" stroke="rgba(128,0,128,0.45)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.5"/>
+    </g>
+    <g id="Photo1" transform="translate(72.159 14.686)">
+      <g id="Rectangle-4" data-name="Rectangle" transform="matrix(0.995, 0.105, -0.105, 0.995, 9.838, 0.694)" fill="#fff" stroke="rgba(128,0,128,0.45)" stroke-miterlimit="10" stroke-width="2.5">
+        <rect width="87" height="88" rx="4" stroke="none"/>
+        <rect x="1.25" y="1.25" width="84.5" height="85.5" rx="2.75" fill="none"/>
+      </g>
+      <rect id="Rectangle-5" data-name="Rectangle" width="69" height="59" rx="3" transform="matrix(0.995, 0.105, -0.105, 0.995, 17.847, 10.586)" fill="#fff" stroke="rgba(128,0,128,0.45)" stroke-width="1"/>
+      <path id="Path_2" data-name="Path 2" d="M2.576,17.776l9.053-7.6a4,4,0,0,1,5.2.051l7.942,6.931a1,1,0,0,0,1.365-.047L40.093,3.15a4,4,0,0,1,5.943.317l11.54,14.309L59.251,20l.167,8.152a1,1,0,0,1-1.006,1.02L1.1,28.837a1,1,0,0,1-.994-.987L0,19.617Z" transform="matrix(0.995, 0.105, -0.105, 0.995, 19.878, 36.245)" fill="rgba(128,0,128,0.45)" stroke="rgba(128,0,128,0.45)" stroke-width="1"/>
+      <g id="Rectangle-6" data-name="Rectangle" transform="matrix(0.995, 0.105, -0.105, 0.995, 17.847, 10.586)" fill="none" stroke="rgba(128,0,128,0.45)" stroke-miterlimit="10" stroke-width="2.5">
+        <rect width="69" height="59" rx="3" stroke="none"/>
+        <rect x="1.25" y="1.25" width="66.5" height="56.5" rx="1.75" fill="none"/>
+      </g>
+      <circle id="Oval" cx="6" cy="6" r="6" transform="matrix(0.995, 0.105, -0.105, 0.995, 27.533, 23.67)" fill="#e8f0fe" stroke="rgba(128,0,128,0.45)" stroke-miterlimit="10" stroke-width="2.5"/>
+      <path id="Path_2-2" data-name="Path 2" d="M0,17.547,10.892,8.2a4,4,0,0,1,5.2.051l7.942,6.931,1.161.111.2-.158L31.96,8.573l.106-.106.342-.342,6.949-6.953A4.2,4.2,0,0,1,41.784.02a3.844,3.844,0,0,1,3.229,1.151,4,4,0,0,1,.286.318l12.839,16.3" transform="matrix(0.995, 0.105, -0.105, 0.995, 20.404, 38.288)" fill="none" stroke="rgba(128,0,128,0.45)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>
