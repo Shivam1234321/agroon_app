@@ -81,6 +81,7 @@ flutter:
     - assets/image/fruitsimage.jpg
     - assets/image/allCategory.png
     - assets/image/notify.png
+    - assets/image/confirmorder.jpg
     - assets/image/nonotification.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see

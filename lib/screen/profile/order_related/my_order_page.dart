@@ -147,10 +147,19 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                                                       color: ColorResources.darkgreen,
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.bold)),
-                                              Text("Price: ${(webViewProvider.showOrderModelList[0].data[index].totalPayment==null?"":webViewProvider.showOrderModelList[0].data[index].totalPayment)}",
-                                                  style: TextStyle(
-                                                      color: ColorResources.black,
-                                                      fontWeight: FontWeight.w500)),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Order Status: ${(webViewProvider.showOrderModelList[0].data[index].orderStatus==null?"":webViewProvider.showOrderModelList[0].data[index].orderStatus)}",
+                                                      style: TextStyle(
+                                                          color: ColorResources.black,
+                                                          fontWeight: FontWeight.w500)),
+                                                  Text("Price: ${(webViewProvider.showOrderModelList[0].data[index].totalPayment==null?"":webViewProvider.showOrderModelList[0].data[index].totalPayment)}",
+                                                      style: TextStyle(
+                                                          color: ColorResources.black,
+                                                          fontWeight: FontWeight.w500)),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                           SizedBox(height: 10,),

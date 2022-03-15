@@ -10,6 +10,7 @@ import 'package:agroon/data/model/support_model.dart';
 import 'package:agroon/data/model/webView_model.dart';
 import 'package:agroon/data/repository/walkthrow_repo/walkthrow_repo.dart';
 import 'package:agroon/data/repository/wevView_repo/webView_repo.dart';
+import 'package:agroon/screen/checkout/order_successful_cashond_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -187,7 +188,7 @@ class WebViewProvider with ChangeNotifier{
     }
   }
 
-  /// checkCouponApi //////////////////////////////////////
+  /// orderapi //////////////////////////////////////
 
   List<OrderModel> orderModel;
 
@@ -205,9 +206,10 @@ class WebViewProvider with ChangeNotifier{
         if(list[0]['status'] == 1){
           orderModel = list.map((data) => new OrderModel.fromJson(data)).toList();
 
-          // Get.to(ConfirmOrderPage(),
-          //     transition: Transition.rightToLeftWithFade,
-          //     duration: Duration(milliseconds: 600));
+          Get.offAll(OrderSuccessfulCashOnDPage(),
+              transition: Transition.zoom,
+              curve: Curves.bounceOut,
+              duration: Duration(milliseconds: 600),);
           Fluttertoast.showToast(msg: orderModel[0].msg.toString(),
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,

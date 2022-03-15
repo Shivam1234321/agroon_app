@@ -69,7 +69,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     setState(() {
       _isLoading = true;
     });
-    await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text,partialpaymentamount,paymentType,totalAmount,coupondiscountAmount);
+    await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull?"":_couponController.text,partialpaymentamount,paymentType,totalAmount,coupondiscountAmount);
     setState(() {
       _isLoading = false;
     });
@@ -253,7 +253,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     Text("")
                         : InkWell(
                         onTap: () async{
-                          _proceed(webViewProvider.getPartialDeductionAmountModelList[0].data.amount,"Full",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
+                          _proceed(webViewProvider.getPartialDeductionAmountModelList[0].data.amount,"Full",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
                           // await SharedPrefManager.savePrefString(AppConstants.ADDRESSID, addressProvider.getAddressDataList[selectedtab].addressId.toString());
                         },
                         child: Center(

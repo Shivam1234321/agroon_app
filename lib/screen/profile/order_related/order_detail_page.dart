@@ -277,128 +277,140 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   //             fontWeight: FontWeight.w500)),
                   //   ],
                   // ),
-                  SizedBox(height: 20),
-                  Container(
-                      width: Get.width / 1,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ColorResources.white,
-                        border: Border.all(color:ColorResources.darkgreen, width: 1.5),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
+                  SizedBox(height: 10),
+                  Card(
+                    elevation: 10,
+
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 30),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: Get.width / 1,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorResources.white,
+                                border: Border.all(color:ColorResources.darkgreen, width: 1.5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                     Container(
-                                      width: 200,
-                                      child: Text("Item name: ${webViewProvider.orderDetailsModelList[0].data.product[0].productName==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].productName}",
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          style: TextStyle(
-                                              color: ColorResources.black,
-                                              fontWeight: FontWeight.bold)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 200,
+                                              child: Text("Item name: ${webViewProvider.orderDetailsModelList[0].data.product[0].productName==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].productName}",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  softWrap: false,
+                                                  style: TextStyle(
+                                                      color: ColorResources.black,
+                                                      fontWeight: FontWeight.bold)),
 
+                                            ),
+                                            Text("QTY: ${webViewProvider.orderDetailsModelList[0].data.product[0].quantity==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].quantity}",
+
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontWeight: FontWeight.w500)),
+                                          ],
+                                        ),
+                                        Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
+                                            style: TextStyle(
+                                                color: ColorResources.black,
+                                                fontWeight: FontWeight.w500)),
+                                      ],
                                     ),
-                                     Text("QTY: ${webViewProvider.orderDetailsModelList[0].data.product[0].quantity==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].quantity}",
-
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontWeight: FontWeight.w500)),
                                   ],
                                 ),
-                                 Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
-                                    style: TextStyle(
-                                        color: ColorResources.black,
-                                        fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Sub total",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                      Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.subTotal==null?"":webViewProvider.orderDetailsModelList[0].data.order.subTotal}",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                    ],
+                              )),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Sub total",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.subTotal==null?"":webViewProvider.orderDetailsModelList[0].data.order.subTotal}",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Shipping cost",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.shippingCost==null?"":webViewProvider.orderDetailsModelList[0].data.order.shippingCost}",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Total",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.totalPayment==null?"":webViewProvider.orderDetailsModelList[0].data.order.totalPayment}",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Paid",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.bold)),
+                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.paidAmount==null?"":webViewProvider.orderDetailsModelList[0].data.order.paidAmount}",
+                                  style: TextStyle(
+                                      color: ColorResources.black,
+                                      fontSize: 15,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Shipping cost",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                      Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.shippingCost==null?"":webViewProvider.orderDetailsModelList[0].data.order.shippingCost}",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Total",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                      Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.totalPayment==null?"":webViewProvider.orderDetailsModelList[0].data.order.totalPayment}",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Paid",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.bold)),
-                      Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.paidAmount==null?"":webViewProvider.orderDetailsModelList[0].data.order.paidAmount}",
-                          style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Divider(
-                    color: ColorResources.grey,
-                    thickness: 1.2,
-                  ),
+                 
+                  // Divider(
+                  //   color: ColorResources.grey,
+                  //   thickness: 1.2,
+                  // ),
                   SizedBox(height: 30),
 
 
