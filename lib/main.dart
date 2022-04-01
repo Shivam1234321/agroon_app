@@ -17,7 +17,6 @@ import 'data/provider/categoryprovider.dart';
 import 'data/provider/profileprovider.dart';
 import 'data/provider/walkthrow_provider.dart';
 import 'di_container.dart' as di;
-
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   GestureBinding.instance.resamplingEnabled = true; // Set this flag.
@@ -28,7 +27,6 @@ Future<void> main() async{
   if(status == true) {
     _default = BottomNavigationBarPage();
   }
-
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => di.sl<WalkthrowProvider>()),

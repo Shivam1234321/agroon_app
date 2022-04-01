@@ -40,6 +40,7 @@ class AppConstants {
   static const String APIcheckCoupon = 'APIcheckCoupon';
   static const String getPartialDeductionAmount = 'getPartialDeductionAmount';
   static const String APIorder = 'APIorder';
+  static const String APIorderPayment = 'APIorderPayment';
   static const String APIshowOrder = 'APIshowOrder';
   static const String APIorderDetails = 'APIorderDetails';
   static const String APIsupportNumbers = 'APIsupportNumbers';
@@ -57,6 +58,7 @@ class AppConstants {
   static const String PRODUCTID = 'PRODUCTID';
   static const String CATEGORYID = 'CATEGORYID';
   static const String ADDRESSID = 'ADDRESSID';
+  static const String PAYMENTID = 'PAYMENTID';
 
   ///
   static const String splashlogo = 'splashlogo';

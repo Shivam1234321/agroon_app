@@ -5,12 +5,16 @@ import 'package:agroon/data/provider/webViewProvider.dart';
 import 'package:agroon/screen/Dashboard/bottom_navigation_bar_page.dart';
 import 'package:agroon/screen/Dashboard/notification_page.dart';
 import 'package:agroon/screen/checkout/coupon_page.dart';
+import 'package:agroon/screen/checkout/order_successful_cashond_page.dart';
+import 'package:agroon/utill/app_constants.dart';
 import 'package:agroon/utill/color_resources.dart';
+import 'package:agroon/utill/sharedprefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({Key key}) : super(key: key);
 
@@ -30,7 +34,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   static const platform = const MethodChannel("razorpay_flutter");
 
-  // Razorpay _razorpay;
+  Razorpay _razorpay;
 
   bool isExpand = false;
   bool _isLoad = false;
@@ -44,6 +48,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     print('jjjjjjjjjjjjjjjjjj');
     await Provider.of<CartProvider>(context, listen: false).getproductData();
     print('jjjjjjjjzzzzzzzzzzzjjjjjjjjjj');
+   await Provider.of<WebViewProvider>(context, listen: false).getPartialDeductionAmountApi();
     setState(() {
       isLoad = false;
     });
@@ -73,113 +78,114 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     setState(() {
       _isLoading = false;
     });
+     openCheckout(totalAmount.toString());
 
   }
-
-
 
   @override
   void initState() {
     super.initState();
     _loadData();
-     Provider.of<WebViewProvider>(context, listen: false).getPartialDeductionAmountApi();
-    // _razorpay = Razorpay();
-    // _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   @override
   void dispose() {
     super.dispose();
-    // _razorpay.clear();
+    _razorpay.clear();
   }
 
-  // void openCheckout() async {
-  //   var options = {
-  //     'key': 'rzp_test_vQOXAJXDVlhsQ4',
-  //     'amount': (totalprice*100),
-  //     'name': 'zzz_mart.',
-  //     'description': cartitems.toString(),
-  //     'prefill': {'contact': '8650965058', 'email': 'rajeev.kumar@aaratechnologies.in'},
-  //     'external': {
-  //       'wallets': ['paytm']
-  //     }
-  //   };
-  //
-  //   try {
-  //     _razorpay.open(options);
-  //   } catch (e) {
-  //     debugPrint('Error: e');
-  //   }
-  // }
-  //
-  // void _handlePaymentSuccess(PaymentSuccessResponse response) {
-  //   var paymentid = response.paymentId;
-  //   print("pspspspsp"+paymentid.toString());
-  //   Get.defaultDialog(
-  //     radius: 5,
-  //     backgroundColor: Colors.white,
-  //     title: 'Your payment Successfull.,'
-  //         'completed',
-  //     titleStyle: TextStyle(
-  //         fontSize: 15,
-  //         fontWeight: FontWeight.bold),
-  //     content: Row(
-  //       mainAxisAlignment:
-  //       MainAxisAlignment.spaceAround,
-  //       children: [
-  //         if(checkoutModel.isEmpty)
-  //           CircularProgressIndicator()
-  //         else InkWell(
-  //             onTap: () async{
-  //               setState(() {
-  //                 // _trySubmit();
-  //                 Get.offAll(OrderSuccessfulPage(),arguments: [checkoutModel[0].data,paymentid]);
-  //               });
-  //               },
-  //             child: Center(
-  //               child: Container(
-  //                   height: 45,
-  //                   width: 100,
-  //                   decoration: BoxDecoration(
-  //                       color: HexColor("F8C07B"),
-  //                       borderRadius:
-  //                       BorderRadius.circular(
-  //                           20)),
-  //                   child: Center(
-  //                       child: Text(
-  //                         "OK",
-  //                         style: TextStyle(
-  //                           fontSize: 14,
-  //                           color: Colors.white,
-  //                           fontWeight:
-  //                           FontWeight.bold,
-  //                         ),
-  //                       ))),
-  //             )),
-  //       ],
-  //     ),
-  //   );
-  //   // Get.offAll(OrderSuccessfulPage(),arguments: [checkoutModel[0].data,paymentid],
-  //   //   transition: Transition.zoom,
-  //   //   curve: Curves.bounceOut,
-  //   //   duration: Duration(milliseconds: 600),
-  //   // );
-  //   Fluttertoast.showToast(
-  //       msg: "Your payment successfully completed ", toastLength: Toast.LENGTH_SHORT);
-  // }
-  //
-  // void _handlePaymentError(PaymentFailureResponse response) {
-  //   Fluttertoast.showToast(
-  //       msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-  //       toastLength: Toast.LENGTH_SHORT);
-  // }
-  //
-  // void _handleExternalWallet(ExternalWalletResponse response) {
-  //   Fluttertoast.showToast(
-  //       msg: "EXTERNAL_WALLET: " + response.walletName!, toastLength: Toast.LENGTH_SHORT);
-  // }
+  void openCheckout(var totalAmount) async {
+    print("slubso"+totalAmount);
+    var options = {
+      'key': 'rzp_test_uIpMJN4O0g3Zdq',
+      'amount': (100*100),
+      'name': 'Agroon',
+      'description': "",
+      'prefill': {'contact': '8650965058', 'email': 'agroon@gmail.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    var paymentid = response.paymentId;
+    print("pspspspsp"+paymentid.toString());
+    Get.defaultDialog(
+      radius: 5,
+      backgroundColor: Colors.white,
+      title: 'Your payment Successfull.,'
+          'completed',
+      titleStyle: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold),
+      content: Row(
+        mainAxisAlignment:
+        MainAxisAlignment.spaceAround,
+        children: [
+          InkWell(
+              onTap: () async{
+              await  SharedPrefManager.savePrefString(AppConstants.PAYMENTID, paymentid.toString());
+                setState(() {
+                  Get.offAll(OrderSuccessfulCashOnDPage(),
+                    transition: Transition.zoom,
+                    curve: Curves.bounceOut,
+                    duration: Duration(milliseconds: 600),);
+                });
+                },
+              child: Center(
+                child: Container(
+                    height: 45,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: ColorResources.darkgreen,
+                        borderRadius:
+                        BorderRadius.circular(
+                            20)),
+                    child: Center(
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ))),
+              )),
+        ],
+      ),
+    );
+    // Get.offAll(OrderSuccessfulPage(),arguments: [checkoutModel[0].data,paymentid],
+    //   transition: Transition.zoom,
+    //   curve: Curves.bounceOut,
+    //   duration: Duration(milliseconds: 600),
+    // );
+    Fluttertoast.showToast(
+        msg: "Your payment successfully completed ", toastLength: Toast.LENGTH_SHORT);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message,
+        toastLength: Toast.LENGTH_SHORT);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName, toastLength: Toast.LENGTH_SHORT);
+  }
 
   var selectedtab = 0;
   @override

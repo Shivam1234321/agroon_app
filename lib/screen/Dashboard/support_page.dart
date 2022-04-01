@@ -35,7 +35,6 @@ class _SupportPageState extends State<SupportPage> {
 
 
   Future<void> _callNowApp(String phoneNumber) async {
-
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
@@ -74,7 +73,6 @@ class _SupportPageState extends State<SupportPage> {
               )),
           backgroundColor: Colors.white,
           actions: [
-
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder)=>BottomNavigationBarPage(selectIndex:1)));
@@ -88,9 +86,9 @@ class _SupportPageState extends State<SupportPage> {
                 onPressed: () {
                   Get.to(NotificationPage(),
                       transition: Transition.rightToLeftWithFade,
-                      duration: Duration(milliseconds: 600));  },
+                      duration: Duration(milliseconds: 600));
+                  },
                 icon: Icon(Icons.notifications, size: 30,color: ColorResources.darkgreen,)),
-
           ],
         ),
         body: Consumer<WebViewProvider>(

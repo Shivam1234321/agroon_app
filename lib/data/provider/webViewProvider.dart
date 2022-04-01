@@ -11,6 +11,8 @@ import 'package:agroon/data/model/webView_model.dart';
 import 'package:agroon/data/repository/walkthrow_repo/walkthrow_repo.dart';
 import 'package:agroon/data/repository/wevView_repo/webView_repo.dart';
 import 'package:agroon/screen/checkout/order_successful_cashond_page.dart';
+import 'package:agroon/utill/app_constants.dart';
+import 'package:agroon/utill/sharedprefrence.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -206,10 +208,12 @@ class WebViewProvider with ChangeNotifier{
         if(list[0]['status'] == 1){
           orderModel = list.map((data) => new OrderModel.fromJson(data)).toList();
 
-          Get.offAll(OrderSuccessfulCashOnDPage(),
-              transition: Transition.zoom,
-              curve: Curves.bounceOut,
-              duration: Duration(milliseconds: 600),);
+        await  SharedPrefManager.savePrefString(AppConstants.ORDERID, orderModel[0].data.orderId.toString());
+        await  SharedPrefManager.savePrefString(AppConstants.ORDERKEY, orderModel[0].data.orderKey.toString());
+          // Get.offAll(OrderSuccessfulCashOnDPage(),
+          //     transition: Transition.zoom,
+          //     curve: Curves.bounceOut,
+          //     duration: Duration(milliseconds: 600),);
           Fluttertoast.showToast(msg: orderModel[0].msg.toString(),
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
@@ -246,6 +250,57 @@ class WebViewProvider with ChangeNotifier{
       return responseModel;
     }
   }
+
+
+  /// orderPaymentAPi //////////////////////////////////////
+
+  Future<ResponseModel> orderPaymentAPi() async {
+    List list;
+    orderModel = null;
+    ResponseModel responseModel;
+    if(orderModel == null) {
+      ApiResponse apiResponse = await webViewRepo.orderPaymentAPi();
+      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+        list = apiResponse.response.data;
+        // list = apiResponse.response.data[0]['data'];
+        if(list[0]['status'] == 1){
+          Fluttertoast.showToast(msg: list[0]['msg'].toString(),
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+        }else{
+          Get.rawSnackbar(message: list[0]['msg'].toString());
+        }
+        responseModel = ResponseModel(true, 'successful');
+      } else {
+        String errorMessage;
+        if (apiResponse.error is String) {
+          errorMessage = apiResponse.error.toString();
+          Fluttertoast.showToast(msg: "Credentials Wrong",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+        } else {
+          ErrorResponse errorResponse = apiResponse.error;
+          errorMessage = errorResponse.errors[0].message;
+          Fluttertoast.showToast(msg: "Something went wrong",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+        }
+        print(errorMessage);
+        // _registrationErrorMessage = errorMessage;
+        responseModel = ResponseModel(false, errorMessage);
+      }
+      // _isLoading = false;
+      notifyListeners();
+      return responseModel;
+    }
+  }
+
 
 
   /// showOrderapi //////////////////////////////////////

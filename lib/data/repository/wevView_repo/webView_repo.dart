@@ -88,6 +88,37 @@ class WebViewRepo {
   }
 
 
+  ///  APIorderPayment ///////////////////////
+
+  Future<ApiResponse> orderPaymentAPi() async {
+    String userID = await SharedPrefManager.getPrefrenceString(AppConstants.USERID);
+    String orderId = await SharedPrefManager.getPrefrenceString(AppConstants.ORDERID);
+    String orderKey = await SharedPrefManager.getPrefrenceString(AppConstants.ORDERKEY);
+    String paymentId = await SharedPrefManager.getPrefrenceString(AppConstants.PAYMENTID);
+    print("kndso"+orderId.toString());
+    print("kndso"+orderKey.toString());
+    print("kndso"+paymentId.toString());
+    print("kndso"+userID.toString());
+
+    try {
+      FormData formData = FormData.fromMap({
+        'orderid': orderId,
+        'orderkey': orderKey,
+        'payment_id': paymentId,
+        'userid': userID,
+      });
+      Response response = await dioClient.post(
+        AppConstants.APIorderPayment,
+        data: formData,
+        options: Options(contentType: Headers.formUrlEncodedContentType),);
+      print("request: " + formData.fields.toString());
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+
   ///  showOrderAPI ///////////////////////
 
   Future<ApiResponse> showOrderapi() async {

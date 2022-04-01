@@ -18,6 +18,7 @@ class _OrderSuccessfulCashOnDPageState extends State<OrderSuccessfulCashOnDPage>
 
   @override
   void initState() {
+     Provider.of<WebViewProvider>(context, listen: false).orderPaymentAPi();
     super.initState();
   }
 
