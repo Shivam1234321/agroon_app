@@ -71,11 +71,12 @@ class CartRepo{
       FormData formData = FormData.fromMap({
         'userid': userID,
       });
+      print("request: "+formData.fields.toString());
       Response response = await dioClient.post(
         AppConstants.APIshowCart,
         data: formData,
         options: Options(contentType: Headers.formUrlEncodedContentType),);
-      print("request: "+formData.fields.toString());
+
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

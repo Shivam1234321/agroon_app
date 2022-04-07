@@ -150,6 +150,7 @@ class ProductProvider with ChangeNotifier{
     ApiResponse apiResponse = await productRepo.singleProductApi();
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       list = jsonDecode(apiResponse.response.data);
+      print('zzzzzzzzzzzzzlk');
       if(list[0]['status'] == 1){
         list= list[0]['data'];
         singleProductData = list.map((data) => new SingleProductData.fromJson(data)).toList();

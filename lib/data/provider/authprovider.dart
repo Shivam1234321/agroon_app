@@ -41,8 +41,8 @@ class AuthProvider with ChangeNotifier{
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       list = jsonDecode(apiResponse.response.data);
-      String userId = list[0]['data']['UserId'].toString();
-      print("UserId"+userId.toString());
+      // String userId = list[0]['data']['UserId'].toString();
+      // print("UserId"+userId.toString());
       // Fluttertoast.showToast(msg: list[0]['msg'].toString(),
       //     toastLength: Toast.LENGTH_SHORT,
       //     gravity: ToastGravity.CENTER,

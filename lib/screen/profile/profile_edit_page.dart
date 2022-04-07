@@ -165,7 +165,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: CircleAvatar(
-                            radius: 75,
+                            radius: 50,
+                            backgroundColor: ColorResources.white,
+                            child: Icon(Icons.person,color:ColorResources.black,size: 60,),
                             // backgroundImage: NetworkImage(image)
                         ),
                         // child: GestureDetector(

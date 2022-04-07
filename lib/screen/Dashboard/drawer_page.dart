@@ -6,6 +6,7 @@ import 'package:agroon/screen/Dashboard/notification_page.dart';
 import 'package:agroon/screen/Dashboard/support_page.dart';
 import 'package:agroon/screen/checkout/choose_address_page.dart';
 import 'package:agroon/screen/checkout/coupon_page.dart';
+import 'package:agroon/screen/profile/order_related/my_order_page.dart';
 import 'package:agroon/utill/color_resources.dart';
 import 'package:agroon/utill/sharedprefrence.dart';
 import 'package:agroon/utill/strings.dart';
@@ -147,6 +148,29 @@ class _DrawerPageState extends State<DrawerPage> {
                 ),
                 ListTile(
                   onTap: (){
+                    Get.to(MyOrdersPage(),
+                      transition: Transition.rightToLeftWithFade,
+                      duration: Duration(milliseconds: 600),
+                    );
+                  },
+                  title: Text(Strings.my_order,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: ColorResources.black,
+                      letterSpacing: 0.5,
+                      fontWeight:
+                      FontWeight.bold,
+                    ),
+                  ),
+                  horizontalTitleGap: 0,
+                  leading: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child:
+                      Icon(Icons.shopping_cart,color: ColorResources.black,)),
+                ),
+                ListTile(
+                  onTap: (){
                     Get.to(ChooseAddressPage(),
                         transition: Transition.rightToLeftWithFade,
                         duration: Duration(milliseconds: 600),
@@ -168,6 +192,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       child:
                       Icon(Icons.location_on,color: ColorResources.black,)),
                 ),
+
                 ListTile(
                   onTap: (){
                     Get.to(CouponPage(),
@@ -245,9 +270,10 @@ class _DrawerPageState extends State<DrawerPage> {
                 ),
                 Consumer<WebViewProvider>(
                   builder: (context,webViewProvider,child)=>
-                  webViewProvider.webViewModelList.isNull?
-                  Text("")
-                      : ListTile(
+                  // webViewProvider.webViewModelList.isNull?
+                  // Text("")
+                  //     :
+                  ListTile(
                     onTap: () {
                       _launchURLApp(webViewProvider.webViewModelList[0].data.termCondition.toString());
                     },

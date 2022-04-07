@@ -159,7 +159,8 @@ class WebViewProvider with ChangeNotifier{
               backgroundColor: Colors.black,
               textColor: Colors.white);
         }else{
-          Get.rawSnackbar(message: checkCouponModel[0].msg.toString());
+
+          Get.rawSnackbar(message: list[0]['msg'].toString());
         }
         responseModel = ResponseModel(true, 'successful');
       } else {

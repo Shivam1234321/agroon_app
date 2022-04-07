@@ -62,7 +62,6 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   @override
   Widget build(BuildContext context) {
 
-
     final tabs = [
       HomePage(),
       CheckOutPage(),
@@ -105,9 +104,10 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
           drawer: Drawer(
             child: Consumer<ProfileProvider>(
               builder: (context, profileProvider, child) =>
-              profileProvider.getProfileModelList == null
-                  ? Text("")
-                  : Column(
+              // profileProvider.getProfileModelList == null
+              //     ? Text("")
+              //    :
+              Column(
                 children: [
                   Expanded(
                     flex: 2,

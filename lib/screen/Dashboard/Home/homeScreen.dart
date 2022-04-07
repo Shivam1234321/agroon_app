@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                             children: [
                               Container(
-                                height: 50,
-                                width: 50,
+                                height: 45,
+                                width: 45,
                                 decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(

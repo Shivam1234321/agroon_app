@@ -41,6 +41,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   bool isLoad = false;
 
+  bool no = false;
+  bool yes = false;
+
   void _loadData()async{
     setState(() {
       isLoad = true;
@@ -69,18 +72,32 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   bool _isLoading = false;
 
-  void _proceed(String partialpaymentamount,String paymentType,String totalAmount,String coupondiscountAmount)async{
-    FocusScope.of(context).unfocus();
-    setState(() {
-      _isLoading = true;
-    });
-    await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull?"":_couponController.text,partialpaymentamount,paymentType,totalAmount,coupondiscountAmount);
-    setState(() {
-      _isLoading = false;
-    });
-     openCheckout(totalAmount.toString());
 
-  }
+   _proceed(String partialpaymentamount,String paymentType,String totalAmount,String coupondiscountAmount)async{
+     if(yes == true){
+       setState(() {
+         _isLoading = true;
+       });
+       await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, totalAmount, coupondiscountAmount);
+       setState(() {
+         _isLoading = false;
+       });
+       openCheckout(totalAmount.toString());
+     }else
+       {
+         if(_formKey.currentState.validate()) {
+           setState(() {
+             _isLoading = true;
+           });
+           await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, _price.text.isEmpty ? totalAmount : _price.text, coupondiscountAmount);
+           setState(() {
+             _isLoading = false;
+           });
+           openCheckout(totalAmount.toString());
+         }
+       }
+
+     }
 
   @override
   void initState() {
@@ -101,9 +118,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void openCheckout(var totalAmount) async {
     print("slubso"+totalAmount);
+    double tm = double.parse(totalAmount);
+    double  pri = double.parse(_price.text.isEmpty?"0":_price.text);
+    print("price: "+pri.toString());
     var options = {
       'key': 'rzp_test_uIpMJN4O0g3Zdq',
-      'amount': (100*100),
+      'amount': pri==0.0?(tm*100):pri*100,
       'name': 'Agroon',
       'description': "",
       'prefill': {'contact': '8650965058', 'email': 'agroon@gmail.com'},
@@ -180,6 +200,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message,
         toastLength: Toast.LENGTH_SHORT);
+    print("eeee:"+response.code.toString()+response.message);
+    _price.text="0";
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -259,8 +281,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     Text("")
                         : InkWell(
                         onTap: () async{
-                          _proceed(webViewProvider.getPartialDeductionAmountModelList[0].data.amount,"Full",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
+                         await _proceed(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partialp",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
                           // await SharedPrefManager.savePrefString(AppConstants.ADDRESSID, addressProvider.getAddressDataList[selectedtab].addressId.toString());
+                         // _price.text=="";
                         },
                         child: Center(
                           child: Container(
@@ -602,14 +625,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                                 fontWeight: FontWeight.bold)),
                         Consumer<WebViewProvider>(
                           builder: (context,webViewProvider,child)=>
-                          webViewProvider.checkCouponModelList==null?
-                          Text("Rs.0.00",
-                              style: TextStyle(
-                              color: ColorResources.black,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
-                              fontWeight: FontWeight.bold))
-                              : Text("Rs. ${(cartProvider.showCartDataList[0].totalamount)-(webViewProvider.checkCouponModelList[0].data.totalDiscountAmount)}",
+                           Text("Rs. ${(cartProvider.showCartDataList[0].totalamount)-(webViewProvider.checkCouponModelList==null?0:webViewProvider.checkCouponModelList[0].data.totalDiscountAmount)}",
                               style: TextStyle(
                                   color: ColorResources.black,
                                   fontSize: 15,
@@ -874,7 +890,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     return Consumer<WebViewProvider>(
         builder: (context,webViewProvider,child)=>
         webViewProvider.getPartialDeductionAmountModelList==null?
-            Text("")
+            const Text("")
     :Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -922,165 +938,199 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-              child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(
-                        color:  ColorResources.darkgreen,
-                        width: 1.5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.radio_button_off,
-                            color: Colors.black),
-                        SizedBox(width: 10),
-                        Text("Partial Payment",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Ubuntu-Regular",
-                            ))
-                      ],
-                    ),
-                  )),
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    Container(
-                      // height: 50,
-                      // width: Get.width,
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                          offset: Offset(0, 3),
-                        ),
-                      ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10, left: 1),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          maxLines: 1,
-                          controller: _price,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please enter price";
-                            }
-                            return null;
-                          },
-                          textCapitalization: TextCapitalization.sentences,
-                          decoration: InputDecoration(
-                            hintText: "Price",
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.white, width: 1),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.white, width: 1),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.white, width: 1),
-                            ),
-                            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
-                            contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                            labelStyle: new TextStyle(
-                              fontSize: 13.0,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
+              child: Column(
+                children: [
+                  Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        border: Border.all(
+                            color:  ColorResources.darkgreen,
+                            width: 1.5),
                       ),
-                    ),
-                  ],
-                ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.radio_button_off,
+                                color: Colors.black),
+                            SizedBox(width: 10),
+                            Text("Partial Payment",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Ubuntu-Regular",
+                                ))
+                          ],
+                        ),
+                      )),
+                ],
               ),
-            )
+            ),
           ],
         )
         :Column(
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-              child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(
-                        color:  ColorResources.darkgreen,
-                        width: 1.5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.radio_button_checked,
-                            color: Colors.black),
-                        SizedBox(width: 10),
-                        Text("Full Payment",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Ubuntu-Regular",
-                            ))
-                      ],
+              child: InkWell(
+                onTap: (){
+                  setState(() {
+                    no = false;
+                    yes= true;
+                  });
+                },
+                child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(
+                          color:  ColorResources.darkgreen,
+                          width: 1.5),
                     ),
-                  )),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        children: [
+                          yes == true?
+                          Icon(Icons.radio_button_checked,size: 25,color: Colors.black,)
+                              : Icon(Icons.radio_button_off,size: 25,color: Colors.black,),
+                          SizedBox(width: 10),
+                          Text("Full Payment",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Ubuntu-Regular",
+                              ))
+                        ],
+                      ),
+                    )),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-              child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    border: Border.all(
-                        color:  ColorResources.darkgreen,
-                        width: 1.5),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        yes= false;
+                        no = true;
+                      });
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          border: Border.all(
+                              color:  ColorResources.darkgreen,
+                              width: 1.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Row(
+                            children: [
+                              no == true?
+                              Icon(Icons.radio_button_checked,size: 25,color:Colors.black,)
+                                  : Icon(Icons.radio_button_off,size: 25,color: Colors.black,),
+                              SizedBox(width: 10),
+                              Text("Partial Payment",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Ubuntu-Regular",
+                                  ))
+                            ],
+                          ),
+                        )),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.radio_button_off,
-                            color: Colors.black),
-                        SizedBox(width: 10),
-                        Text("Partial Payment",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Ubuntu-Regular",
-                            ))
-                      ],
+                  SizedBox(height: 10),
+                  no == true?
+                  Form(
+                    key: _formKey,
+                    child: Consumer<WebViewProvider>(
+                      builder: (context,webViewProvider,child)=>
+                       Column(
+                        children: [
+                          Consumer<CartProvider>(
+                            builder: (context,cartProvider,child)=>
+                                Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color:  ColorResources.darkgreen,
+                                    width: 1.5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10, left: 10),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.done,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  maxLines: 1,
+                                  controller: _price,
+                                  validator: (value) {
+                                    var txtp = double.tryParse(_price.text);
+                                    var per = (double.tryParse(webViewProvider.getPartialDeductionAmountModelList[0].data.amount)*(double.tryParse(cartProvider.showCartDataList[0].totalamount.toString())))/100;
+                                   print("txtp"+txtp.toString());
+                                   print("per"+per.toString());
+                                    if (value.isEmpty) {
+                                      return "Please enter price";
+                                    } else if (txtp <= per || txtp>=cartProvider.showCartDataList[0].totalamount) {
+                                      return "Price should be greater then ${per.toString()} or less then ${cartProvider.showCartDataList[0].totalamount.toString()}";
+                                    }
+                                    return null;
+                                  },
+                                  textCapitalization: TextCapitalization.sentences,
+                                  decoration: InputDecoration(
+                                    hintText: "Amount",
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.white, width: 1),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(color: Colors.white, width: 1),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: new BorderSide(color: Colors.white, width: 1),
+                                    ),
+                                    errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
+                                    contentPadding:
+                                    EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                                    labelStyle: new TextStyle(
+                                      fontSize: 13.0,
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  )),
+                  )
+                  :Text("")
+                ],
+              ),
             ),
+
           ],
         )
       ],
      )
     );
   }
-
-
-
 }

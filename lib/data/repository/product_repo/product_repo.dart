@@ -63,6 +63,7 @@ class ProductRepo{
         'userid': userID,
         'productid': productId,
       });
+      print("request: "+formData.fields.toString());
       Response response = await dioClient.post(
         AppConstants.singleProduct,
         data: formData,

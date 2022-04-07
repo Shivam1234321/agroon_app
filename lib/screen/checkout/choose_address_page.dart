@@ -194,7 +194,7 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
+                                  padding: const EdgeInsets.only(left: 10.0,top: 10),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [

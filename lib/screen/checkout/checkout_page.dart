@@ -41,7 +41,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
     });
   }
 
-  void _incrementcart(productId, priceId) async{
+   _incrementcart(productId, priceId) async{
     setState(() {
       _isLoad = true;
     });
@@ -311,8 +311,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                                   SizedBox(width: 5),
                                                   InkWell(
                                                     onTap: () {
-                                                      setState(() {
-                                                        _incrementcart(cartProvider.showCartDataList[0].data[index].productId,cartProvider.showCartDataList[0].data[index].priceId);
+                                                      setState(() async{
+                                                      await  _incrementcart(cartProvider.showCartDataList[0].data[index].productId,cartProvider.showCartDataList[0].data[index].priceId);
                                                         // increment();
                                                       });
                                                     },
