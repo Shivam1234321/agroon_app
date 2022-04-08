@@ -89,7 +89,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
            setState(() {
              _isLoading = true;
            });
-           await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, _price.text.isEmpty ? totalAmount : _price.text, coupondiscountAmount);
+           await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, totalAmount, coupondiscountAmount);
            setState(() {
              _isLoading = false;
            });
@@ -281,7 +281,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     Text("")
                         : InkWell(
                         onTap: () async{
-                         await _proceed(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partialp",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
+                         await _proceed(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partial",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
                           // await SharedPrefManager.savePrefString(AppConstants.ADDRESSID, addressProvider.getAddressDataList[selectedtab].addressId.toString());
                          // _price.text=="";
                         },
@@ -293,10 +293,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                                     color: Colors.grey.withOpacity(0.3),
                                     spreadRadius: 1,
                                     blurRadius: 3,
-                                    offset: Offset(0, 3),
+                                    offset: const Offset(0, 3),
                                   ),
                                 ],
-                                gradient: LinearGradient(colors: [
+                                gradient: const LinearGradient(colors: [
                                   ColorResources.green,
                                   ColorResources.darkgreen,
                                 ]),
@@ -304,7 +304,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                               ),
                               height: 50,
                               width: 200,
-                              child: Center(
+                              child: const Center(
                                 child: Text("Proceed",
                                     style: TextStyle(
                                         color: Colors.white,
