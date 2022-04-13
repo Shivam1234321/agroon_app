@@ -241,6 +241,7 @@ class _SignInPageState extends State<SignInPage> {
                     Expanded(
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        obscureText:true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         textInputAction: TextInputAction.done,
                         maxLines: 1,
