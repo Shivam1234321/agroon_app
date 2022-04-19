@@ -391,6 +391,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 5,
         child: TextFormField(
+          obscuringCharacter: "*",
+          keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: _passwordController,
@@ -426,6 +428,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 5,
         child: TextFormField(
+          obscuringCharacter: "*",
+          keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: _confirmpasswordController,
