@@ -78,9 +78,9 @@ class ProfileProvider with ChangeNotifier{
 
   /// updateprofileApi/////////////////////////
 
-  Future<ResponseModel> updateprofileApi(String name,String shopname, String email,String mobile,String gstno,String state,String city,String address) async {
+  Future<ResponseModel> updateprofileApi(String name,String shopname, String email,String mobile,String gstno,String state,String city,String address,String landmark,String pincode) async {
     List list;
-    ApiResponse apiResponse = await profileRepo.updateprofileApi(name, shopname, email, mobile, gstno, state, city,address);
+    ApiResponse apiResponse = await profileRepo.updateprofileApi(name, shopname, email, mobile, gstno, state, city,address,landmark,pincode);
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       list = jsonDecode(apiResponse.response.data);

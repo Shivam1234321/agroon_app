@@ -18,13 +18,15 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
+  TextEditingController _shopnameController = TextEditingController();
+  TextEditingController _landmarkController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _phonenumberController = TextEditingController();
   TextEditingController _gstController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
   TextEditingController _stateController = TextEditingController();
-  TextEditingController _shopnameController = TextEditingController();
-  TextEditingController _phonenumberController = TextEditingController();
+  TextEditingController _pincodeController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
 
@@ -36,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         _isLoad = true;
       });
-      await Provider.of<AuthProvider>(context,listen: false).registerApi(_nameController.text, _shopnameController.text, _emailController.text, _phonenumberController.text,_gstController.text,_stateController.text,_cityController.text,_addressController.text,_passwordController.text,_confirmpasswordController.text);
+      await Provider.of<AuthProvider>(context,listen: false).registerApi(_nameController.text, _shopnameController.text,_landmarkController.text, _emailController.text, _phonenumberController.text,_gstController.text,_stateController.text,_cityController.text,_addressController.text,_pincodeController.text,_passwordController.text,_confirmpasswordController.text);
       setState(() {
         _isLoad = false;
       });
@@ -63,12 +65,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(height: 10,),
                       _fullnametextfeild(),
                       _shopnametextfield(),
+                      _landmarktextfield(),
                       _emailaddresstextfield(),
                       _mobilenumbertextfield(),
                       _gsttextfield(),
-                      _statetextfield(),
-                      _citytextfield(),
                       _adresstextfield(),
+                      _citytextfield(),
+                      _statetextfield(),
+                      _pincodetextfield(),
                       _passwordtextfield(),
                       _confirmpasswordtextfield(),
 
@@ -143,6 +147,76 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  _shopnametextfield() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: TextFormField(
+          controller: _shopnameController,
+          keyboardType: TextInputType.text,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding:
+            EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
+            labelText: 'Firm Name',
+            labelStyle: TextStyle(
+              color: ColorResources.darkgreen,
+            ),
+            errorStyle: TextStyle(color: ColorResources.errorColor),
+          ),
+          validator: (value) {
+            if (value.trim().isEmpty) {
+              return "Please, enter your Firm Name";
+            }
+
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
+  _landmarktextfield() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: TextFormField(
+          controller: _landmarkController,
+          keyboardType: TextInputType.text,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding:
+            EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
+            labelText: 'Landmark',
+            labelStyle: TextStyle(
+              color: ColorResources.darkgreen,
+            ),
+            errorStyle: TextStyle(color: ColorResources.errorColor),
+          ),
+          validator: (value) {
+            if (value.trim().isEmpty) {
+              return "Please, enter your landmark";
+            }
+
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
   _emailaddresstextfield() {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
@@ -199,6 +273,9 @@ class _SignUpPageState extends State<SignUpPage> {
             if (value.trim().isEmpty) {
               return "Please, enter your Mobile number";
             }
+            if(value.length<10 || value.length>10){
+              return "Mobile number be 10 digit only.";
+            }
 
             return null;
           },
@@ -233,41 +310,6 @@ class _SignUpPageState extends State<SignUpPage> {
           validator: (value) {
             if (value.trim().isEmpty) {
               return "Please, enter your GST number";
-            }
-
-            return null;
-          },
-        ),
-      ),
-    );
-  }
-
-  _adresstextfield() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        elevation: 5,
-        child: TextFormField(
-          controller: _addressController,
-          keyboardType: TextInputType.text,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
-            labelText: 'Address',
-            labelStyle: TextStyle(
-              color: ColorResources.darkgreen,
-            ),
-            errorStyle: TextStyle(color: ColorResources.errorColor),
-          ),
-          validator: (value) {
-            if (value.trim().isEmpty) {
-              return "Please, enter your address";
             }
 
             return null;
@@ -347,7 +389,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  _shopnametextfield() {
+  _pincodetextfield() {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: Card(
@@ -356,15 +398,15 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 5,
         child: TextFormField(
-          controller: _shopnameController,
-          keyboardType: TextInputType.text,
+          controller: _pincodeController,
+          keyboardType: TextInputType.number,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             border: InputBorder.none,
             contentPadding:
             EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
-            labelText: 'Shop Name',
+            labelText: 'Pincode',
             labelStyle: TextStyle(
               color: ColorResources.darkgreen,
             ),
@@ -372,7 +414,84 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           validator: (value) {
             if (value.trim().isEmpty) {
-              return "Please, enter your Shop Name";
+              return "Please, enter your pincode"+value.length.toString();
+            }
+            if(value.length<6 || value.length>6){
+              return "Pincode be 6 digit only.";
+            }
+
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
+  _adresstextfield() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: TextFormField(
+          minLines: 2,
+          controller: _addressController,
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
+            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
+            labelText: 'Address',
+            labelStyle: TextStyle(
+              color: ColorResources.darkgreen,
+            ),
+            errorStyle: TextStyle(color: ColorResources.errorColor),
+          ),
+          validator: (value) {
+            if (value.trim().isEmpty) {
+              return "Please, enter your address";
+            }
+
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
+  _sttextfield() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: TextFormField(
+          minLines: 2,
+          controller: _addressController,
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding:
+            EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
+            errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
+            labelText: 'Address',
+            labelStyle: TextStyle(
+              color: ColorResources.darkgreen,
+            ),
+            errorStyle: TextStyle(color: ColorResources.errorColor),
+          ),
+          validator: (value) {
+            if (value.trim().isEmpty) {
+              return "Please, enter your address";
             }
 
             return null;

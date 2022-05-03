@@ -96,10 +96,10 @@ class AuthProvider with ChangeNotifier{
 
   /// RegisterApi/////////////////////////
 
-  Future<ResponseModel> registerApi(String name,String shopname,String email,String mobile,String gstno,String state,String city,String address,String password,String confirmPassword) async {
+  Future<ResponseModel> registerApi(String name,String shopname,String landmark,String email,String mobile,String gstno,String state,String city,String address,String pincode,String password,String confirmPassword) async {
 
     List list;
-    ApiResponse apiResponse = await authRepo.registerUserApi( name, shopname, email, mobile, gstno, state, city, address, password, confirmPassword);
+    ApiResponse apiResponse = await authRepo.registerUserApi( name, shopname,landmark, email, mobile, gstno, state, city, address,pincode, password, confirmPassword);
 
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
