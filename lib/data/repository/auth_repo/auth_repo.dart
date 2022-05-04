@@ -40,18 +40,20 @@ class AuthRepo{
 
   /// APIRegister ///////////////////////
 
-  Future<ApiResponse> registerUserApi(String name,String shopname,String email,String mobile,String gstno,String state,String city,String address,String password,String confirmPassword) async {
+  Future<ApiResponse> registerUserApi(String name,String shopname,String landmark,String email,String mobile,String gstno,String state,String city,String address,String pincode,String password,String confirmPassword) async {
    await SharedPrefManager.savePrefString(AppConstants.MOBILE, mobile);
     try {
       FormData formData = FormData.fromMap({
         'name': name,
         'shop_name': shopname,
+        'landmark': landmark,
         'email': email,
         'mobile': mobile,
         'gstno': gstno,
         'state': state,
         'city': city,
         'address': address,
+        'pincode': pincode,
         'password': password,
         'confirm_password': confirmPassword,
       });

@@ -34,7 +34,7 @@ class ProfileRepo{
 
   /// update profile api ///////////////////////
 
-  Future<ApiResponse> updateprofileApi(String name, String shopname,String email,String mobile,String gstno,String state,String city,String address) async {
+  Future<ApiResponse> updateprofileApi(String name, String shopname,String email,String mobile,String gstno,String state,String city,String address,String landamrk,String pincode) async {
     String userid = await SharedPrefManager.getPrefrenceString(AppConstants.USERID);
     try {
       FormData formData = FormData.fromMap({
@@ -47,6 +47,8 @@ class ProfileRepo{
         'state': state,
         'city': city,
         'address': address,
+        'landmark': landamrk,
+        'pincode': pincode,
       });
       Response response = await dioClient.post(
         AppConstants.APIupdateProfile,

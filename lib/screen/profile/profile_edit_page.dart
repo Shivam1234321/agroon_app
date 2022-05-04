@@ -34,6 +34,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
    String email;
    String state;
    String city;
+   String landmark;
+   String pincode;
 
 
 
@@ -48,6 +50,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     var addresses = dataGetProfile.address;
     var states = dataGetProfile.state;
     var citys = dataGetProfile.city;
+    var landmarks = dataGetProfile.landmark;
+    var pincodes = dataGetProfile.pincode;
 
     setState(() {
       name = names;
@@ -59,6 +63,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       city = citys;
       image= images;
       email= emails;
+      landmark= landmarks;
+      pincode= pincodes;
     });
     _name.text = names;
     _shopname.text = shopnames;
@@ -68,6 +74,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     _email.text = emails;
     _state.text = states;
     _city.text = citys;
+    _landmark.text = landmarks;
+    _pincode.text = pincodes;
   }
   final _name = TextEditingController();
   final _shopname = TextEditingController();
@@ -77,6 +85,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final _state = TextEditingController();
   final _city = TextEditingController();
   final _gSTNo = TextEditingController();
+  final _landmark = TextEditingController();
+  final _pincode = TextEditingController();
+
 
   @override
   void initState() {
@@ -94,7 +105,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       setState(() {
         _isLoad = true;
       });
-      await Provider.of<ProfileProvider>(context,listen: false).updateprofileApi(_name.text, _shopname.text, _email.text, _mobile.text,_gSTNo.text,_state.text,_city.text,_address.text);
+      await Provider.of<ProfileProvider>(context,listen: false).updateprofileApi(_name.text, _shopname.text, _email.text, _mobile.text,_gSTNo.text,_state.text,_city.text,_address.text,_landmark.text,_pincode.text);
       setState(() {
         _isLoad = false;
       });
@@ -124,7 +135,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   color: ColorResources.darkgreen, size: 28)),
           centerTitle: true,
           backgroundColor: Colors.white,
-          title: Text("Add new address",
+          title: Text("Edit Profile",
               style: TextStyle(
                 fontSize: 15,
                 letterSpacing: 1,
@@ -195,6 +206,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     SizedBox(height: 15),
                     _changeshopename(),
                     SizedBox(height: 15),
+                    _changelandmark(),
+                    SizedBox(height: 15),
                     _changeGSTno(),
                     SizedBox(height: 15),
                     _changeState(),
@@ -202,6 +215,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     _changeCity(),
                     SizedBox(height: 15),
                     _changelocation(),
+                    SizedBox(height: 15),
+                    _changepincode(),
                     SizedBox(height: 30),
                     if(_isLoad)
                       CircularProgressIndicator()
@@ -297,7 +312,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
              prefixIcon: IconButton(
                  onPressed: null,
                  icon: Icon(Icons.person, color: Colors.black)),
-             hintText: "Shop Name",
+             hintText: "Firm Name",
              hintStyle: TextStyle(
                color: ColorResources.darkgreen,
                fontSize: 15,
@@ -322,7 +337,63 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
          ),
          validator: (value) {
            if (value.trim().isEmpty) {
-             return "Please, enter your Shop Name";
+             return "Please, enter your Firm Name";
+           }
+
+           return null;
+         },
+       ),);
+   }
+
+   _changelandmark() {
+     return Container(
+       decoration: BoxDecoration(
+         boxShadow: [
+           BoxShadow(
+             color: Colors.grey.withOpacity(0.5),
+             spreadRadius: 1,
+             blurRadius: 5,
+             offset: Offset(0, 3),
+           ),
+         ],
+         color: Colors.white,
+         borderRadius: BorderRadius.circular(10),
+       ),
+       alignment: Alignment.bottomLeft,
+       child: TextFormField(
+         controller: _landmark,
+         autovalidateMode: AutovalidateMode.onUserInteraction,
+         textAlignVertical: TextAlignVertical.bottom,
+         decoration: InputDecoration(
+             prefixIcon: IconButton(
+                 onPressed: null,
+                 icon: Icon(Icons.location_on, color: Colors.black)),
+             hintText: "Landmark",
+             hintStyle: TextStyle(
+               color: ColorResources.darkgreen,
+               fontSize: 15,
+             ),
+             enabledBorder: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(10),
+               borderSide: BorderSide(color: Colors.white, width: 1),
+             ),
+             focusedBorder: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(10),
+               borderSide: BorderSide(color: Colors.white, width: 1),
+             ),
+             errorBorder: OutlineInputBorder(
+                 borderSide: new BorderSide(color: Colors.grey, width: 1),
+                 borderRadius: BorderRadius.circular(10)),
+             focusedErrorBorder: OutlineInputBorder(
+                 borderSide: new BorderSide(color: Colors.grey, width: 1),
+                 borderRadius: BorderRadius.circular(10)),
+             border: OutlineInputBorder(
+                 borderSide: new BorderSide(color: Colors.yellow, width: 1),
+                 borderRadius: BorderRadius.circular(10))
+         ),
+         validator: (value) {
+           if (value.trim().isEmpty) {
+             return "Please, enter your landmark";
            }
 
            return null;
@@ -409,7 +480,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
          decoration: InputDecoration(
              prefixIcon: IconButton(
                  onPressed: null,
-                 icon: Icon(Icons.person, color: Colors.black)),
+                 icon: Icon(Icons.location_on, color: Colors.black)),
              hintText: "State",
              hintStyle: TextStyle(
                color: ColorResources.darkgreen,
@@ -465,7 +536,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
          decoration: InputDecoration(
              prefixIcon: IconButton(
                  onPressed: null,
-                 icon: Icon(Icons.person, color: Colors.black)),
+                 icon: Icon(Icons.location_on, color: Colors.black)),
              hintText: "City",
              hintStyle: TextStyle(
                color: ColorResources.darkgreen,
@@ -493,7 +564,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
            if (value.trim().isEmpty) {
              return "Please, enter your City";
            }
-
            return null;
          },
        ),);
@@ -552,6 +622,66 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           },
         ));
   }
+
+   _changepincode() {
+     return Container(
+         decoration: BoxDecoration(
+           boxShadow: [
+             BoxShadow(
+               color: Colors.grey.withOpacity(0.5),
+               spreadRadius: 1,
+               blurRadius: 5,
+               offset: Offset(0, 3),
+             ),
+           ],
+           color: Colors.white,
+           borderRadius: BorderRadius.circular(10),
+         ),
+         alignment: Alignment.bottomLeft,
+         child: TextFormField(
+           controller: _pincode,
+           keyboardType: TextInputType.number,
+           autovalidateMode: AutovalidateMode.onUserInteraction,
+           textAlignVertical: TextAlignVertical.bottom,
+           decoration: InputDecoration(
+               prefixIcon: IconButton(
+                   onPressed: null,
+                   icon: Icon(Icons.location_on, color: Colors.black)),
+               hintText: "Pincode",
+               hintStyle: TextStyle(
+                 color: ColorResources.darkgreen,
+                 fontSize: 15,
+               ),
+
+               enabledBorder: OutlineInputBorder(
+                 borderRadius: BorderRadius.circular(10),
+                 borderSide: BorderSide(color: Colors.white, width: 1),
+               ),
+               focusedBorder: OutlineInputBorder(
+                 borderRadius: BorderRadius.circular(10),
+                 borderSide: BorderSide(color: Colors.white, width: 1),
+               ),
+               errorBorder: OutlineInputBorder(
+                   borderSide: new BorderSide(color: Colors.grey, width: 1),
+                   borderRadius: BorderRadius.circular(10)),
+               focusedErrorBorder: OutlineInputBorder(
+                   borderSide: new BorderSide(color: Colors.grey, width: 1),
+                   borderRadius: BorderRadius.circular(10)),
+               border: OutlineInputBorder(
+                   borderSide: new BorderSide(color: Colors.yellow, width: 1),
+                   borderRadius: BorderRadius.circular(10))),
+           validator: (value) {
+             if (value.trim().isEmpty) {
+               return "Please, enter your pincode";
+             }
+             if (value.length<6 || value.length>6) {
+               return "Pincode, must be 6 digit.";
+             }
+
+             return null;
+           },
+         ));
+   }
 
 
 }
