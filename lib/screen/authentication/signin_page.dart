@@ -240,10 +240,12 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.visiblePassword,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         textInputAction: TextInputAction.done,
                         maxLines: 1,
+                        obscuringCharacter: "*",
+                        obscureText: true,
                         controller: _password,
                         validator: (value) {
                           if (value.isEmpty) {

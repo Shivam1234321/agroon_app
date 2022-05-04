@@ -391,6 +391,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 5,
         child: TextFormField(
+          obscuringCharacter: "*",
+          keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: _passwordController,
@@ -426,13 +428,14 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 5,
         child: TextFormField(
+          obscuringCharacter: "*",
+          keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: _confirmpasswordController,
           decoration: InputDecoration(
             border: InputBorder.none,
-            contentPadding:
-            EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
             labelText: 'Confirm Password',
             labelStyle: TextStyle(color: ColorResources.darkgreen),
