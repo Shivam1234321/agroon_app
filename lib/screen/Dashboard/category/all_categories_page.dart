@@ -66,7 +66,7 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder)=>BottomNavigationBarPage(selectIndex:1)));
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.shopping_cart,
                   size: 25,
                   color: ColorResources.darkgreen,
@@ -98,12 +98,12 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                   fontWeight: FontWeight.bold,
                   fontFamily: "Ubuntu-Regular",
                 ),),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
                   categoryProvider.categoryDataList.isEmpty?
-                  Text("No Data found",
+                  const Text("No Data found",
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: TextStyle(
@@ -116,8 +116,8 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: GridView.builder(
                       shrinkWrap: true,
-                      physics:  NeverScrollableScrollPhysics(),
-                      gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      physics:  const NeverScrollableScrollPhysics(),
+                      gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: 5.0,
                         mainAxisSpacing: 5.0,
@@ -161,14 +161,15 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                                               :Image.network(categoryProvider.categoryDataList[index].image,
                                               fit: BoxFit.fill,
                                               )
-                                        ),),
+                                        ),
+                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Container(
                                           child:  Text(categoryProvider.categoryDataList[index].category==null?"Category Name":categoryProvider.categoryDataList[index].category.toString(),
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: false,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 15,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w600,
@@ -179,7 +180,8 @@ class _AllCategoryPageState extends State<AllCategoryPage> {
                                       )
                                     ],
                                   )),
-                            ));
+                            )
+                        );
                       },
                     ),
                   ),

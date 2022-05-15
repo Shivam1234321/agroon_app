@@ -554,8 +554,7 @@ class _SignUpPageState extends State<SignUpPage> {
           controller: _confirmpasswordController,
           decoration: InputDecoration(
             border: InputBorder.none,
-            contentPadding:
-            EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
             labelText: 'Confirm Password',
             labelStyle: TextStyle(color: ColorResources.darkgreen),
