@@ -251,7 +251,7 @@ class _SignInPageState extends State<SignInPage> {
                           if (value.isEmpty) {
                             return "Please enter password";
                           } else if (value.length < 8) {
-                            return "Password have must be atleast 8 digits";
+                            return "Password have must be atleast 8 character long";
                           }
                           return null;
                         },

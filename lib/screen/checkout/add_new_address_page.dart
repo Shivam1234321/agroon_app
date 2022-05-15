@@ -424,7 +424,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
                 hintMaxLines: 3,
-                hintText: "ZIP Code",
+                hintText: "Pincode",
                 hintStyle: TextStyle(
                   color: ColorResources.black,
                   fontSize: 15,
@@ -448,13 +448,18 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
                     borderRadius: BorderRadius.circular(10))),
           validator: (value) {
             if (value.trim().isEmpty) {
-              return "Please, enter your Zip Code";
+              return "Please, enter your Pincode";
+            }
+            if (value.length<6 || value.length>6) {
+              return "Pincode must be 6 digit only.";
             }
 
             return null;
           },
         ));
   }
+
+
 
   _saveaddressbutton() {
     return InkWell(

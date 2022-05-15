@@ -45,7 +45,7 @@ class AddressProvider extends ChangeNotifier{
       String errorMessage;
       if (apiResponse.error is String) {
         errorMessage = apiResponse.error.toString();
-        Fluttertoast.showToast(msg: "Credentials Wrong",
+        Fluttertoast.showToast(msg: list[0]['msg'],
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,
@@ -53,7 +53,7 @@ class AddressProvider extends ChangeNotifier{
       } else {
         ErrorResponse errorResponse = apiResponse.error;
         errorMessage = errorResponse.errors[0].message;
-        Fluttertoast.showToast(msg: "Something went wrong",
+        Fluttertoast.showToast(msg: list[0]['msg'],
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,
@@ -100,7 +100,7 @@ class AddressProvider extends ChangeNotifier{
         String errorMessage;
         if (apiResponse.error is String) {
           errorMessage = apiResponse.error.toString();
-          Fluttertoast.showToast(msg: "Credentials Wrong",
+          Fluttertoast.showToast(msg: errorMessage,
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               backgroundColor: Colors.black,
@@ -108,7 +108,7 @@ class AddressProvider extends ChangeNotifier{
         } else {
           ErrorResponse errorResponse = apiResponse.error;
           errorMessage = errorResponse.errors[0].message;
-          Fluttertoast.showToast(msg: "Something went wrong",
+          Fluttertoast.showToast(msg: errorMessage,
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               backgroundColor: Colors.black,
@@ -137,7 +137,7 @@ class AddressProvider extends ChangeNotifier{
       if(list[0]['status'] == 1){
         Get.snackbar(
             "Address Deleted",
-            "address is delete from this list");
+            list[0]['msg']);
         // Get.back(closeOverlays: true);
 
         // Fluttertoast.showToast(msg: list[0]['msg'].toString(),
@@ -153,7 +153,7 @@ class AddressProvider extends ChangeNotifier{
       String errorMessage;
       if (apiResponse.error is String) {
         errorMessage = apiResponse.error.toString();
-        Fluttertoast.showToast(msg: "Credentials Wrong",
+        Fluttertoast.showToast(msg: errorMessage,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,
@@ -161,7 +161,7 @@ class AddressProvider extends ChangeNotifier{
       } else {
         ErrorResponse errorResponse = apiResponse.error;
         errorMessage = errorResponse.errors[0].message;
-        Fluttertoast.showToast(msg: "Something went wrong",
+        Fluttertoast.showToast(msg: errorMessage,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,
@@ -203,7 +203,7 @@ class AddressProvider extends ChangeNotifier{
       String errorMessage;
       if (apiResponse.error is String) {
         errorMessage = apiResponse.error.toString();
-        Fluttertoast.showToast(msg: "Credentials Wrong",
+        Fluttertoast.showToast(msg: errorMessage,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,
@@ -211,7 +211,7 @@ class AddressProvider extends ChangeNotifier{
       } else {
         ErrorResponse errorResponse = apiResponse.error;
         errorMessage = errorResponse.errors[0].message;
-        Fluttertoast.showToast(msg: "Something went wrong",
+        Fluttertoast.showToast(msg: errorMessage,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             backgroundColor: Colors.black,

@@ -439,7 +439,10 @@ class _EditAddressPageState extends State<EditAddressPage> {
                   borderRadius: BorderRadius.circular(10))),
           validator: (value) {
             if (value.trim().isEmpty) {
-              return "Please, enter your Zip Code";
+              return "Please, enter your  pincode";
+            }
+            if (value.length<6 || value.length>6) {
+              return "Pincode must be 6 digit only.";
             }
 
             return null;
