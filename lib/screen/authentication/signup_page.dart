@@ -32,13 +32,15 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _isLoad = false;
 
+  String _states;
+
   void _trySubmit()async{
     FocusScope.of(context).unfocus();
     if(_formKey.currentState.validate()){
       setState(() {
         _isLoad = true;
       });
-      await Provider.of<AuthProvider>(context,listen: false).registerApi(_nameController.text, _shopnameController.text,_landmarkController.text, _emailController.text, _phonenumberController.text,_gstController.text,_stateController.text,_cityController.text,_addressController.text,_pincodeController.text,_passwordController.text,_confirmpasswordController.text);
+      await Provider.of<AuthProvider>(context,listen: false).registerApi(_nameController.text, _shopnameController.text,_landmarkController.text, _emailController.text, _phonenumberController.text,_gstController.text==null?"":_gstController.text,_states,_cityController.text,_addressController.text,_pincodeController.text,_passwordController.text,_confirmpasswordController.text);
       setState(() {
         _isLoad = false;
       });
@@ -46,6 +48,15 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
   }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<AuthProvider>(context, listen: false).getstatesData();
+   }
+
   bool isChecked = true;
 
   @override
@@ -71,7 +82,55 @@ class _SignUpPageState extends State<SignUpPage> {
                       _gsttextfield(),
                       _adresstextfield(),
                       _citytextfield(),
-                      _statetextfield(),
+                      Consumer<AuthProvider>(
+                        builder: (context, authProvider, child) =>
+                        authProvider.showstatesModelList==null
+                            ?Text(""): Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Card(
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              elevation: 5,
+                                child: DropdownButton<dynamic>(
+                          underline: SizedBox(),
+                          isExpanded: true,
+                          hint: Padding(
+                                padding: const EdgeInsets.only(left: 15.0,top: 5,bottom: 5),
+                                child: Text('${_states.isNull?"State":_states}',
+                                    style: TextStyle(
+                                      color: ColorResources.darkgreen,
+                                      // fontSize: Dimensions.text_size15,
+                                      // letterSpacing: 0.5,
+                                      // fontWeight: FontWeight.bold,
+                                    )),
+                          ), // Not necessary for Option 1
+                          value: _states,
+                          onChanged: (newValue) {
+                                setState(() {
+                                  _states =  newValue;
+                                });
+                          },
+                          items: authProvider.showstatesModelList[0].date.map((item) {
+                                return DropdownMenuItem(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 15.0,top: 5,bottom: 5),
+                                    child: Text(item.toString(),
+                                        style: TextStyle(
+                                          color: ColorResources.darkgreen,
+                                          // fontSize: Dimensions.text_size15,
+                                          // letterSpacing: 0.5,
+                                          // fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                  value: item,
+                                );
+                          }).toList(),
+                        ),
+                              ),
+                            ),
+                      ),
+                      // _statetextfield(),
                       _pincodetextfield(),
                       _passwordtextfield(),
                       _confirmpasswordtextfield(),
@@ -301,19 +360,19 @@ class _SignUpPageState extends State<SignUpPage> {
             contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             errorBorder: new OutlineInputBorder(borderSide: BorderSide.none),
-            labelText: 'GST No.',
+            labelText: 'GST No.(Optional)',
             labelStyle: TextStyle(
               color: ColorResources.darkgreen,
             ),
             errorStyle: TextStyle(color: ColorResources.errorColor),
           ),
-          validator: (value) {
-            if (value.trim().isEmpty) {
-              return "Please, enter your GST number";
-            }
-
-            return null;
-          },
+          // validator: (value) {
+          //   if (value.trim().isEmpty) {
+          //     return "Please, enter your GST number";
+          //   }
+          //
+          //   return null;
+          // },
         ),
       ),
     );
@@ -528,7 +587,7 @@ class _SignUpPageState extends State<SignUpPage> {
             if (value.trim().isEmpty) {
               return "Please, enter the password";
             }
-            if (value.trim().length < 8) {
+            if (value.trim().length < 5) {
               return "Password should be more then 5 characters";
             }
             return null;
@@ -564,7 +623,7 @@ class _SignUpPageState extends State<SignUpPage> {
             if (value.trim().isEmpty) {
               return "Please, enter the Confirm password";
             }
-            if (value.trim().length < 8) {
+            if (value.trim().length < 5) {
               return "Confirm Password not match";
             }
             return null;

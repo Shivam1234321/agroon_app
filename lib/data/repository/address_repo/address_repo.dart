@@ -13,7 +13,7 @@ class AddressRepo{
 
   ///  APIaddAddress  ///////////////////////
 
-  Future<ApiResponse> addAddressapi(String name,String mobile, String address,String city,String land_mark,String pincode,) async {
+  Future<ApiResponse> addAddressapi(String name,String mobile, String address,String city,String state, String land_mark,String pincode,) async {
     String userID = await SharedPrefManager.getPrefrenceString(AppConstants.USERID);
     try {
       FormData formData = FormData.fromMap({
@@ -22,6 +22,7 @@ class AddressRepo{
         'mobile': mobile,
         'address': address,
         'city': city,
+        'state': state,
         'land_mark': land_mark,
         'pincode': pincode,
       });
@@ -80,7 +81,7 @@ class AddressRepo{
 
   ///  APIupdateAddress  ///////////////////////
 
-  Future<ApiResponse> updateAddressapi(String name,String mobile, String address,String city,String land_mark,String pincode,String addressId) async {
+  Future<ApiResponse> updateAddressapi(String name,String mobile, String address,String city,String state,String land_mark,String pincode,String addressId) async {
     String userID = await SharedPrefManager.getPrefrenceString(AppConstants.USERID);
     try {
       FormData formData = FormData.fromMap({
@@ -89,6 +90,7 @@ class AddressRepo{
         'mobile': mobile,
         'address': address,
         'city': city,
+        'state': state,
         'land_mark': land_mark,
         'pincode': pincode,
         'address_id': addressId,

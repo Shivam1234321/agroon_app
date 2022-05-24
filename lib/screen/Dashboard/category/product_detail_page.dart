@@ -190,11 +190,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(productProvider.singleProductDataList[0].shortDescription==null?"":productProvider.singleProductDataList[0].shortDescription.toString(),
+                          Text(productProvider.singleProductDataList[0].categoryName==null?"":productProvider.singleProductDataList[0].categoryName.toString(),
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.black,
@@ -207,7 +207,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 Icons.star,
                                 color: ColorResources.darkgreen,
                               ),
-                              Text("(${"120"} Views)",
+                              Text("(${productProvider.singleProductDataList[0].viewCount==null?"":productProvider.singleProductDataList[0].viewCount.toString()} Views)",
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: ColorResources.darkgreen,
@@ -218,6 +218,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           )
                         ],
                       ),
+                      Text(productProvider.singleProductDataList[0].subCategoryName==null?"":productProvider.singleProductDataList[0].subCategoryName.toString(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.w600,
+                            fontFamily: "Ubuntu-Regular",
+                          )),
+                      Text(productProvider.singleProductDataList[0].brandName==null?"":productProvider.singleProductDataList[0].brandName.toString(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.w600,
+                            fontFamily: "Ubuntu-Regular",
+                          )),
+                      Text(productProvider.singleProductDataList[0].shortDescription==null?"":productProvider.singleProductDataList[0].shortDescription.toString(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.w600,
+                            fontFamily: "Ubuntu-Regular",
+                          )),
+
                       SizedBox(height: 10),
                       Row(
                         children: [
@@ -333,6 +355,43 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 children: [
                   InkWell(
                     onTap: () {
+                      _addCart(productProvider.singleProductDataList[0].productId,productProvider.singleProductDataList[0].priceDetails[0].priceId);
+                      Get.snackbar("Product Added",
+                          "This item is successsfully added in to cart");
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                          color: ColorResources.black,
+                        ),
+                        height: 60,
+                        width: Get.width / 2,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: null,
+                                  icon: Icon(Icons.shopping_bag,
+                                      color: Colors.white)),
+                              Text("Add to Cart",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (builder)=>BottomNavigationBarPage(selectIndex:1)));
                       // Get.to(CheckOutPage(),
                       //     transition: Transition.rightToLeftWithFade,
@@ -361,43 +420,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   icon: Icon(Icons.shopping_cart_outlined,
                                       color: Colors.white)),
                               Text("Go to Cart",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        )),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _addCart(productProvider.singleProductDataList[0].productId,productProvider.singleProductDataList[0].priceDetails[0].priceId);
-                      Get.snackbar("Product Added",
-                          "This item is successsfully added in to cart");
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                          color: ColorResources.black,
-                        ),
-                        height: 60,
-                        width: Get.width / 2,
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: null,
-                                  icon: Icon(Icons.shopping_bag,
-                                      color: Colors.white)),
-                              Text("Add to Cart",
                                   style: TextStyle(
                                       color: Colors.white,
                                       letterSpacing: 0.5,

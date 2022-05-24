@@ -463,13 +463,16 @@ class _HomePageState extends State<HomePage> {
                                                     SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(productProvider.productDataList[index].shortDescription==null?"":productProvider.productDataList[index].shortDescription.toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontFamily: "Ubuntu-Regular",
-                                                        )),
+                                                    Container(
+                                                      width: MediaQuery.of(context).size.width*0.3,
+                                                      child: Text(productProvider.productDataList[index].shortDescription==null?"":productProvider.productDataList[index].shortDescription.toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily: "Ubuntu-Regular",
+                                                          )),
+                                                    ),
                                                     SizedBox(
                                                       height: 5,
                                                     ),

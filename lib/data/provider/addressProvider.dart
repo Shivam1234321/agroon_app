@@ -20,9 +20,9 @@ class AddressProvider extends ChangeNotifier{
 
   /// addaddressapi/////////////////////////
 
-  Future<ResponseModel> addAddressapi(String name,String mobile, String address,String city,String land_mark,String pincode,) async {
+  Future<ResponseModel> addAddressapi(String name,String mobile, String address,String city,String state,String land_mark,String pincode,) async {
     List list;
-    ApiResponse apiResponse = await addressRepo.addAddressapi(name, mobile, address,city,land_mark,pincode);
+    ApiResponse apiResponse = await addressRepo.addAddressapi(name, mobile, address,city,state,land_mark,pincode);
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       list = jsonDecode(apiResponse.response.data);
@@ -179,9 +179,9 @@ class AddressProvider extends ChangeNotifier{
 
   /// updateaddaddressapi/////////////////////////
 
-  Future<ResponseModel> updateaddAddressapi(String name,String mobile, String address,String city,String land_mark,String pincode,String addressId) async {
+  Future<ResponseModel> updateaddAddressapi(String name,String mobile, String address,String city,String state,String land_mark,String pincode,String addressId) async {
     List list;
-    ApiResponse apiResponse = await addressRepo.updateAddressapi(name, mobile, address,city,land_mark,pincode,addressId);
+    ApiResponse apiResponse = await addressRepo.updateAddressapi(name, mobile, address,city,state,land_mark,pincode,addressId);
     ResponseModel responseModel;
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       list = jsonDecode(apiResponse.response.data);

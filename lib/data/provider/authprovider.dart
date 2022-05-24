@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:agroon/data/model/response/base/api_response.dart';
 import 'package:agroon/data/model/response/base/error_response.dart';
 import 'package:agroon/data/model/response/response_model.dart';
+import 'package:agroon/data/model/states_model.dart';
 import 'package:agroon/data/repository/auth_repo/auth_repo.dart';
 import 'package:agroon/screen/Dashboard/bottom_navigation_bar_page.dart';
 import 'package:agroon/screen/authentication/forgotPasswordwithmobile.dart';
@@ -172,7 +173,7 @@ class AuthProvider with ChangeNotifier{
               transition: Transition.rightToLeftWithFade,
               duration: const Duration(milliseconds: 600));
         }else{
-          Get.off(() => BottomNavigationBarPage(),
+          Get.offAll(() => SignInPage(),
               transition: Transition.rightToLeftWithFade,
               duration: const Duration(milliseconds: 600));
           await SharedPrefManager.savePreferenceBoolean(true);
@@ -464,6 +465,63 @@ class AuthProvider with ChangeNotifier{
     _isLoading = false;
     notifyListeners();
     return responseModel;
+  }
+
+
+  /// colorsApi Api/////////////////////////
+
+
+
+  List<StatesModel> statesModel;
+
+  List<StatesModel> get showstatesModelList => statesModel;
+  Future<ResponseModel> getstatesData() async {
+    List list;
+    statesModel = null;
+    ResponseModel responseModel;
+    if(statesModel == null) {
+      ApiResponse apiResponse = await authRepo.statesApi();
+      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+        list = apiResponse.response.data;
+        if(list[0]['status'] == 1){
+          statesModel = list.map((data) => new StatesModel.fromJson(data)).toList();
+          print("successfulllll");
+        }else{
+          Fluttertoast.showToast(msg: list[0]['msg'].toString(),
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+          // Get.rawSnackbar(message: list[0]['msg'].toString());
+        }
+        responseModel = ResponseModel(true, 'successful');
+      } else {
+        String errorMessage;
+        if (apiResponse.error is String) {
+          errorMessage = apiResponse.error.toString();
+          Fluttertoast.showToast(msg: "Credentials Wrong",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+        } else {
+          ErrorResponse errorResponse = apiResponse.error;
+          errorMessage = errorResponse.errors[0].message;
+          Fluttertoast.showToast(msg: "Something went wrong",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              backgroundColor: Colors.black,
+              textColor: Colors.white);
+        }
+        print(errorMessage);
+        // _registrationErrorMessage = errorMessage;
+        responseModel = ResponseModel(false, errorMessage);
+      }
+      // _isLoading = false;
+      notifyListeners();
+      return responseModel;
+    }
+
   }
 
 

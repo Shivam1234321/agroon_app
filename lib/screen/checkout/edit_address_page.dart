@@ -1,5 +1,6 @@
 import 'package:agroon/data/model/AddressModel/getAddress_model.dart';
 import 'package:agroon/data/provider/addressProvider.dart';
+import 'package:agroon/data/provider/authprovider.dart';
 import 'package:agroon/screen/Dashboard/bottom_navigation_bar_page.dart';
 import 'package:agroon/utill/color_resources.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
       setState(() {
         _isLoad = true;
       });
-      await Provider.of<AddressProvider>(context,listen: false).updateaddAddressapi(_nameController.text, _mobileController.text, _addressController.text,_cityController.text,_landmarkController.text,_zipcodeController.text,showdata.addressId);
+      await Provider.of<AddressProvider>(context,listen: false).updateaddAddressapi(_nameController.text, _mobileController.text, _addressController.text,_cityController.text,_states.isNull?showdata.state:_states,_landmarkController.text,_zipcodeController.text,showdata.addressId);
       setState(() {
         _isLoad = false;
       });
@@ -72,9 +73,13 @@ class _EditAddressPageState extends State<EditAddressPage> {
     await Provider.of<AddressProvider>(context, listen: false).getshowAddressData();
   }
 
+  String _states;
+
+
 
   @override
   void initState() {
+    Provider.of<AuthProvider>(context, listen: false).getstatesData();
     _allDetail();
     super.initState();
   }
@@ -138,6 +143,50 @@ class _EditAddressPageState extends State<EditAddressPage> {
                       _addresstextfield(),
                       SizedBox(height: 20),
                       _citytextfield(),
+                      SizedBox(height: 20),
+                      Consumer<AuthProvider>(
+                        builder: (context, authProvider, child) =>
+                        authProvider.showstatesModelList==null
+                            ?Text(""): Container(
+                          height: 60,
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey[50],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: DropdownButton<dynamic>(
+                            underline: SizedBox(),
+                            isExpanded: true,
+                            hint: Padding(
+                              padding: const EdgeInsets.only(left: 15.0,top: 5,bottom: 5),
+                              child: Text('${showdata.state==null?_states.isNull?"State":_states:showdata.state}',
+                                  style: TextStyle(
+                                    color: ColorResources.black,
+                                    fontSize: 15,
+                                  )),
+                            ), // Not necessary for Option 1
+                            value: _states,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _states =  newValue;
+                              });
+                            },
+                            items: authProvider.showstatesModelList[0].date.map((item) {
+                              return DropdownMenuItem(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15.0,top: 5,bottom: 5),
+                                  child: Text(item.toString(),
+                                      style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                      )),
+                                ),
+                                value: item,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       _landmarktextfield(),
                       SizedBox(height: 20),

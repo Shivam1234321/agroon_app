@@ -95,8 +95,6 @@ class AuthRepo{
   }
 
 
-
-
 ///  resendOTPApi Api ///////////////////////
 
   Future<ApiResponse> resendOtpApi() async {
@@ -208,6 +206,19 @@ class AuthRepo{
     }
   }
 
+
+  /// states api ///////////////////////
+
+  Future<ApiResponse> statesApi() async {
+    try {
+      Response response = await dioClient.get(
+          AppConstants.StateApi
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 
 
 }

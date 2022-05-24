@@ -44,6 +44,7 @@ class SingleProductData {
     this.shortDescription,
     this.description,
     this.vendorName,
+    this.viewCount,
     this.priceDetails,
   });
 
@@ -57,6 +58,7 @@ class SingleProductData {
   String shortDescription;
   String description;
   String vendorName;
+  String viewCount;
   List<PriceDetail> priceDetails;
 
   factory SingleProductData.fromJson(Map<String, dynamic> json) => SingleProductData(
@@ -70,6 +72,7 @@ class SingleProductData {
     shortDescription: json["ShortDescription"],
     description: json["Description"],
     vendorName: json["VendorName"],
+    viewCount: json["ViewCount"],
     priceDetails: List<PriceDetail>.from(json["PriceDetails"].map((x) => PriceDetail.fromJson(x))),
   );
 
@@ -84,6 +87,7 @@ class SingleProductData {
     "ShortDescription": shortDescription,
     "Description": description,
     "VendorName": vendorName,
+    "ViewCount": viewCount,
     "PriceDetails": List<dynamic>.from(priceDetails.map((x) => x.toJson())),
   };
 }

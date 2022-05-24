@@ -6,6 +6,7 @@ import 'package:agroon/screen/Dashboard/notification_page.dart';
 import 'package:agroon/screen/Dashboard/support_page.dart';
 import 'package:agroon/screen/checkout/choose_address_page.dart';
 import 'package:agroon/screen/checkout/coupon_page.dart';
+import 'package:agroon/screen/profile/myaddress.dart';
 import 'package:agroon/screen/profile/order_related/my_order_page.dart';
 import 'package:agroon/utill/color_resources.dart';
 import 'package:agroon/utill/sharedprefrence.dart';
@@ -42,7 +43,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
   _launchURLApp(url) async {
     if (await canLaunch(url)) {
-      await launch(url, forceSafariVC: true, forceWebView: true);
+      await launch(url, enableJavaScript:true,forceSafariVC: true, forceWebView: true);
     } else {
       throw 'Could not launch $url';
     }
@@ -131,7 +132,7 @@ class _DrawerPageState extends State<DrawerPage> {
                         transition: Transition.rightToLeftWithFade,
                         duration: Duration(milliseconds: 600));
                   },
-                  title: Text(Strings.all_categories,
+                  title: const Text(Strings.all_categories,
                     style: TextStyle(
                       fontSize: 14,
                       color: ColorResources.black,
@@ -153,7 +154,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       duration: Duration(milliseconds: 600),
                     );
                   },
-                  title: Text(Strings.my_order,
+                  title: const Text(Strings.my_order,
                     style: TextStyle(
                       fontSize: 14,
                       color: ColorResources.black,
@@ -163,7 +164,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     ),
                   ),
                   horizontalTitleGap: 0,
-                  leading: SizedBox(
+                  leading: const SizedBox(
                       height: 20,
                       width: 20,
                       child:
@@ -171,7 +172,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 ),
                 ListTile(
                   onTap: (){
-                    Get.to(ChooseAddressPage(),
+                    Get.to(MyAddressPage(),
                         transition: Transition.rightToLeftWithFade,
                         duration: Duration(milliseconds: 600),
                     );
@@ -300,6 +301,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   Text("")
                       : ListTile(
                     onTap: () {
+                      print("dilhwdils"+webViewProvider.webViewModelList[0].data.privacyPolicy.toString());
                       _launchURLApp(webViewProvider.webViewModelList[0].data.privacyPolicy.toString());
                       },
                     title: Text(Strings.privacy_policy,

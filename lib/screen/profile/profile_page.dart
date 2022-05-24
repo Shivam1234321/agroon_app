@@ -4,6 +4,7 @@ import 'package:agroon/data/provider/profileprovider.dart';
 import 'package:agroon/data/provider/webViewProvider.dart';
 import 'package:agroon/screen/Dashboard/bottom_navigation_bar_page.dart';
 import 'package:agroon/screen/checkout/choose_address_page.dart';
+import 'package:agroon/screen/profile/myaddress.dart';
 import 'package:agroon/screen/profile/order_related/my_order_page.dart';
 import 'package:agroon/screen/profile/profile_edit_page.dart';
 import 'package:agroon/utill/color_resources.dart';
@@ -303,7 +304,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: 15),
                         InkWell(
                           onTap: (){
-                            Get.to(ChooseAddressPage(),
+                            Get.to(MyAddressPage(),
                                 transition: Transition.rightToLeftWithFade,
                                 duration: Duration(milliseconds: 600));
                           },

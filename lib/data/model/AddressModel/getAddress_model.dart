@@ -41,6 +41,7 @@ class GetAddressData {
     this.landMark,
     this.city,
     this.pincode,
+    this.state,
   });
 
   String addressId;
@@ -50,6 +51,7 @@ class GetAddressData {
   String landMark;
   String city;
   String pincode;
+  String state;
 
   factory GetAddressData.fromJson(Map<String, dynamic> json) => GetAddressData(
     addressId: json["AddressId"],
@@ -59,6 +61,7 @@ class GetAddressData {
     landMark: json["LandMark"],
     city: json["City"],
     pincode: json["Pincode"],
+    state: json["State"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class GetAddressData {
     "LandMark": landMark,
     "City": city,
     "Pincode": pincode,
+    "State": state,
   };
 }
