@@ -48,7 +48,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<AuthProvider>(context, listen: false).getstatesData();
+    // Provider.of<AuthProvider>(context, listen: false).getstatesData();
   }
 
 

@@ -79,7 +79,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
 
   @override
   void initState() {
-    Provider.of<AuthProvider>(context, listen: false).getstatesData();
+    // Provider.of<AuthProvider>(context, listen: false).getstatesData();
     _allDetail();
     super.initState();
   }

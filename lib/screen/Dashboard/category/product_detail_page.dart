@@ -7,6 +7,7 @@ import 'package:agroon/utill/color_resources.dart';
 import 'package:agroon/utill/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:provider/provider.dart';
 
 import '../bottom_navigation_bar_page.dart';
@@ -120,17 +121,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           child: Container(
             child:Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
-                    image: DecorationImage(image: NetworkImage(productProvider.singleProductDataList[0].priceDetails[0].priceImg[0]),),
-                  ),
-                  // child: Image.asset(Images.fruitsimage,),
+                GFCarousel(
+                  pagination: true,
                   height: Get.height / 2,
-                  width: Get.width,
+                  pagerSize: 10.0,
+                  autoPlay: false,
+                  viewportFraction: 1.0,
+                  activeIndicator: Colors.blue,
+                  passiveIndicator: Colors.grey,
+                  initialPage: 0,
+                  autoPlayInterval: Duration(seconds: 7),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  items: productProvider.singleProductDataList[0].priceDetails[0].priceImg.map(
+                        (url) {
+                      return Container(
+                        margin: EdgeInsets.only(top: 10,right: 10,left: 10),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(url.toString(),
+                              fit: BoxFit.fitWidth,
+                            )
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  onPageChanged: (index) {
+                    setState(() {
+                      index;
+                    });
+                  },
                 ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.only(
+                //         topLeft: Radius.circular(10),
+                //         topRight: Radius.circular(10)),
+                //     image: DecorationImage(image: NetworkImage(productProvider.singleProductDataList[0].priceDetails[0].priceImg[0]),),
+                //   ),
+                //   // child: Image.asset(Images.fruitsimage,),
+                //   height: Get.height / 2,
+                //   width: Get.width,
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(

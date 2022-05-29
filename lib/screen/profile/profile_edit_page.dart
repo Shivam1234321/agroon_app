@@ -115,7 +115,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
    @override
    void initState() {
-     Provider.of<AuthProvider>(context, listen: false).getstatesData();
      _allDetail();
      super.initState();
 

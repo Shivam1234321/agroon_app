@@ -204,7 +204,13 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
                                         ),
                                       ),
                                       SizedBox(height: 2),
-                                      Text(addressProvider.getAddressDataList[index].city==null?"city":addressProvider.getAddressDataList[index].city.toString(),
+                                      Text(addressProvider.getAddressDataList[index].city==null?"City":addressProvider.getAddressDataList[index].city.toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(addressProvider.getAddressDataList[index].state==null?"State":addressProvider.getAddressDataList[index].state.toString(),
                                         style: TextStyle(
                                           color: Colors.black,
                                         ),

@@ -1,4 +1,5 @@
 
+import 'package:agroon/data/provider/authprovider.dart';
 import 'package:agroon/data/provider/cartProvider.dart';
 import 'package:agroon/data/provider/categoryprovider.dart';
 import 'package:agroon/data/provider/productprovider.dart';
@@ -72,6 +73,8 @@ class _HomePageState extends State<HomePage> {
     Provider.of<WalkthrowProvider>(context, listen: false).getsplashData();
     Provider.of<ProductProvider>(context, listen: false).getproductData();
     Provider.of<WalkthrowProvider>(context, listen: false).getColorsData();
+    Provider.of<AuthProvider>(context, listen: false).getstatesData();
+
   }
 
   bool _isLoading = false;

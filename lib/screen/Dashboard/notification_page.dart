@@ -93,23 +93,29 @@ class _NotificationPageState extends State<NotificationPage> {
             : SingleChildScrollView(
             child: Container(
                 child: Column(children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            color: ColorResources.darkgreen,
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: InkWell(
-                                  splashColor: ColorResources.darkgreen,
-                                  onTap: () {
-                                    setState(() {
-                                      _index = 0;
-                                    });
-                                  },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 2.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: InkWell(
+                              // splashColor: ColorResources.darkgreen,
+                              onTap: () {
+                                setState(() {
+                                  _index = 0;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: _index == 0?ColorResources.darkgreen:Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
+                                  ),),
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
                                   child: _index == 0
                                       ? Text("Order Notification",
                                       style: TextStyle(
@@ -120,31 +126,36 @@ class _NotificationPageState extends State<NotificationPage> {
                                       ))
                                       : Text("Order Notification",
                                       style: TextStyle(
-                                        color: ColorResources.white,
+                                        color: ColorResources.darkgreen,
                                         fontSize: 15,
                                         letterSpacing: 0.5,
-                                      ))),
+                                      )),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            color: ColorResources.light_blue,
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: InkWell(
-                                  splashColor: ColorResources.darkgreen,
-                                  onTap: () {
-                                    setState(() {
-                                      _index = 1;
-                                    });
-                                  },
+                          SizedBox(width: 3,),
+                          Expanded(
+                            flex: 5,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _index = 1;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:  _index == 1?ColorResources.darkgreen:Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(
+                                    10.0,
+                                  ),),
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
                                   child: _index == 1
                                       ? Text("Offer Notification",
                                       style: TextStyle(
-                                        color: ColorResources.darkgreen,
+                                        color: ColorResources.white,
                                         fontSize: 15,
                                         letterSpacing: 0.5,
                                         fontWeight: FontWeight.bold,
@@ -154,12 +165,15 @@ class _NotificationPageState extends State<NotificationPage> {
                                         color: ColorResources.darkgreen,
                                         fontSize: 15,
                                         letterSpacing: 0.5,
-                                      ))),
+                                      )),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ]),
-                  // Divider(color: Colors.grey),
+                        ]),
+                  ),
+                  // Divider(color: Colors.grey,height: 2,),
+                  SizedBox(height: 10,),
                   Visibility(
                       visible: _index == 0,
                       child:walkthrowProvider.orderNotificationDataList.isNull?

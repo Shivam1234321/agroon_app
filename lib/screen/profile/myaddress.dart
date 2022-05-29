@@ -209,6 +209,12 @@ class _MyAddressPageState extends State<MyAddressPage> {
                                         ),
                                       ),
                                       SizedBox(height: 2),
+                                      Text(addressProvider.getAddressDataList[index].state==null?"State":addressProvider.getAddressDataList[index].state.toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
                                       Container(
                                         width: Get.width / 1 - 115,
                                         child: Row(

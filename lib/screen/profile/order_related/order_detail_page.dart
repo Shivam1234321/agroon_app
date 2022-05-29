@@ -137,285 +137,307 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           )
               : SingleChildScrollView(
               child: Container(
-            child: Padding(
-              padding:  EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Order Number",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    letterSpacing: 0.1,
-                                    fontWeight: FontWeight.bold)),
-                            Text("#${webViewProvider.orderDetailsModelList[0].data.order.orderId==null?"":webViewProvider.orderDetailsModelList[0].data.order.orderId}",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    letterSpacing: 0.1,
-                                    fontWeight: FontWeight.w600)),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Total",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    letterSpacing: 0.1,
-                                    fontWeight: FontWeight.bold)),
-                            Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    letterSpacing: 0.1,
-                                    fontWeight: FontWeight.w600)),
-
-                          ],
-                        ),
-                      ),
-                    ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0,bottom: 10,left: 20),
+                  child: Container(
+                    child: Text("Order ID - #${webViewProvider.orderDetailsModelList[0].data.order.orderId==null?"":webViewProvider.orderDetailsModelList[0].data.order.orderId}",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            letterSpacing: 0.1,
+                            fontWeight: FontWeight.bold)),
                   ),
-                  SizedBox(height: 20,),
-                  Text("Placed on",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          letterSpacing: 0.3,
-                          fontWeight: FontWeight.w500)),
-                  Text("${webViewProvider.orderDetailsModelList[0].data.order.placedOn==null?"":webViewProvider.orderDetailsModelList[0].data.order.placedOn.toString()}",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          letterSpacing: 0.3,
-                          fontWeight: FontWeight.w500)),
-                  SizedBox(height: 20,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Address",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              letterSpacing: 0.1,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 5,
-                      ),
-                       Text("${webViewProvider.orderDetailsModelList[0].data.address.userName==null?"":webViewProvider.orderDetailsModelList[0].data.address.userName}",
-                          style: TextStyle(
-                              color: Colors.black54, fontWeight: FontWeight.w500)),
-                      Text("${webViewProvider.orderDetailsModelList[0].data.address.address==null?"":webViewProvider.orderDetailsModelList[0].data.address.address}",
-                          style: TextStyle(
-                              color: Colors.black54, fontWeight: FontWeight.w500)),
-                      Text("${webViewProvider.orderDetailsModelList[0].data.address.addressState==null?"":webViewProvider.orderDetailsModelList[0].data.address.addressState}",
-                          style: TextStyle(
-                              color: Colors.black54, fontWeight: FontWeight.w500)),
-                      Text("PIN: ${webViewProvider.orderDetailsModelList[0].data.address.addressPincode==null?"":webViewProvider.orderDetailsModelList[0].data.address.addressPincode}",
-                          style: TextStyle(
-                              color: Colors.black54, fontWeight: FontWeight.w500)),
-                      Text("Mobile No: ${webViewProvider.orderDetailsModelList[0].data.address.mobile==null?"":webViewProvider.orderDetailsModelList[0].data.address.mobile}",
-                          style: TextStyle(
-                              color: Colors.black54, fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Payment method",
-                          style: TextStyle(
-                              color: Colors.black,
-                              letterSpacing: 0.1,
-                              fontWeight: FontWeight.bold)),
-                      Text("",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              letterSpacing: 0.1,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text("Tnx Id:",
-                  //         style: TextStyle(
-                  //             fontSize: 15,
-                  //             color: Colors.black,
-                  //             letterSpacing: 0.1,
-                  //             fontWeight: FontWeight.bold)),
-                  //     Text("orderKey",
-                  //         style: TextStyle(
-                  //             color: Colors.black54,
-                  //             letterSpacing: 0.1,
-                  //             fontWeight: FontWeight.w500)),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 15),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text("Order Id:",
-                  //         style: TextStyle(
-                  //             fontSize: 15,
-                  //             color: Colors.black,
-                  //             letterSpacing: 0.1,
-                  //             fontWeight: FontWeight.bold)),
-                  //     Text("102ow011,2o",
-                  //         style: TextStyle(
-                  //             color: Colors.black54,
-                  //             letterSpacing: 0.1,
-                  //             fontWeight: FontWeight.w500)),
-                  //   ],
-                  // ),
-                  SizedBox(height: 10),
-                  Card(
-                    elevation: 10,
-
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 30),
-                      child: Column(
+                ),
+                Divider(
+                  color: ColorResources.grey,
+                  thickness: 0.5,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              width: Get.width / 1,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: ColorResources.white,
-                                border: Border.all(color:ColorResources.darkgreen, width: 1.5),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: 200,
-                                              child: Text("Item name: ${webViewProvider.orderDetailsModelList[0].data.product[0].productName==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].productName}",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  softWrap: false,
-                                                  style: TextStyle(
-                                                      color: ColorResources.black,
-                                                      fontWeight: FontWeight.bold)),
-
-                                            ),
-                                            Text("QTY: ${webViewProvider.orderDetailsModelList[0].data.product[0].quantity==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].quantity}",
-
-                                                style: TextStyle(
-                                                    color: Colors.black54,
-                                                    fontWeight: FontWeight.w500)),
-                                          ],
-                                        ),
-                                        Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
-                                            style: TextStyle(
-                                                color: ColorResources.black,
-                                                fontWeight: FontWeight.w500)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Sub total",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("${webViewProvider.orderDetailsModelList[0].data.product[0].productName==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].productName}",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        letterSpacing: 0.1,
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(height: 5,),
+                                Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"0.00":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
+                                    style: TextStyle(
                                       fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.subTotal==null?"":webViewProvider.orderDetailsModelList[0].data.order.subTotal}",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                            ],
+                                      color: Colors.black,
+                                      letterSpacing: 0.1,
+                                      // fontWeight: FontWeight.bold
+                                    )),
+                                SizedBox(height: 10,),
+                                Text("Placed on",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        letterSpacing: 0.3,
+                                        fontWeight: FontWeight.w500)),
+                                Text("${webViewProvider.orderDetailsModelList[0].data.order.placedOn==null?"":webViewProvider.orderDetailsModelList[0].data.order.placedOn.toString()}",
+                                    style: TextStyle(
+                                        color: Colors.black54,
+                                        letterSpacing: 0.3,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Shipping cost",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.shippingCost==null?"":webViewProvider.orderDetailsModelList[0].data.order.shippingCost}",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                            ],
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              image: DecorationImage(image: NetworkImage(webViewProvider.orderDetailsModelList[0].data.product[0].image==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].image),),
+                            ),
+                            // child: Image.asset(Images.fruitsimage,),
+                            height: Get.height/8,
+                            width: Get.width/2,
                           ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Total",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.totalPayment==null?"":webViewProvider.orderDetailsModelList[0].data.order.totalPayment}",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Paid",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.bold)),
-                              Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.paidAmount==null?"":webViewProvider.orderDetailsModelList[0].data.order.paidAmount}",
-                                  style: TextStyle(
-                                      color: ColorResources.black,
-                                      fontSize: 15,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
                         ],
                       ),
                     ),
-                  ),
-                 
-                  // Divider(
-                  //   color: ColorResources.grey,
-                  //   thickness: 1.2,
-                  // ),
-                  SizedBox(height: 30),
+                    Divider(
+                      color: ColorResources.grey,
+                      thickness: 0.5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Address Details",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  letterSpacing: 0.1,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                           Text("${webViewProvider.orderDetailsModelList[0].data.address.userName==null?"":webViewProvider.orderDetailsModelList[0].data.address.userName}",
+                              style: TextStyle(
+                                  color: Colors.black54, fontWeight: FontWeight.w500)),
+                          Text("${webViewProvider.orderDetailsModelList[0].data.address.address==null?"":webViewProvider.orderDetailsModelList[0].data.address.address}",
+                              style: TextStyle(
+                                  color: Colors.black54, fontWeight: FontWeight.w500)),
+                          Text("${webViewProvider.orderDetailsModelList[0].data.address.addressState==null?"":webViewProvider.orderDetailsModelList[0].data.address.addressState}",
+                              style: TextStyle(
+                                  color: Colors.black54, fontWeight: FontWeight.w500)),
+                          Text("PIN: ${webViewProvider.orderDetailsModelList[0].data.address.addressPincode==null?"":webViewProvider.orderDetailsModelList[0].data.address.addressPincode}",
+                              style: TextStyle(
+                                  color: Colors.black54, fontWeight: FontWeight.w500)),
+                          Text("Mobile No: ${webViewProvider.orderDetailsModelList[0].data.address.mobile==null?"":webViewProvider.orderDetailsModelList[0].data.address.mobile}",
+                              style: TextStyle(
+                                  color: Colors.black54, fontWeight: FontWeight.w500)),
+                        ],
+                      ),
+                    ),
+                    // SizedBox(height: 15),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text("Payment method",
+                    //         style: TextStyle(
+                    //             color: Colors.black,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.bold)),
+                    //     Text("",
+                    //         style: TextStyle(
+                    //             color: Colors.black54,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.w500)),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 15),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text("Tnx Id:",
+                    //         style: TextStyle(
+                    //             fontSize: 15,
+                    //             color: Colors.black,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.bold)),
+                    //     Text("orderKey",
+                    //         style: TextStyle(
+                    //             color: Colors.black54,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.w500)),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 15),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text("Order Id:",
+                    //         style: TextStyle(
+                    //             fontSize: 15,
+                    //             color: Colors.black,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.bold)),
+                    //     Text("102ow011,2o",
+                    //         style: TextStyle(
+                    //             color: Colors.black54,
+                    //             letterSpacing: 0.1,
+                    //             fontWeight: FontWeight.w500)),
+                    //   ],
+                    // ),
+                    SizedBox(height: 10),
+                    Card(
+                      elevation: 10,
+                      borderOnForeground: true,
+                      shadowColor: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Payment Details",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    letterSpacing: 0.1,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(height: 20,),
+                            Container(
+                                width: Get.width / 1,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: ColorResources.white,
+                                  border: Border.all(color:ColorResources.darkgreen, width: 1.5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 200,
+                                                child: Text("Item name: ${webViewProvider.orderDetailsModelList[0].data.product[0].productName==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].productName}",
+                                                    overflow: TextOverflow.ellipsis,
+                                                    softWrap: false,
+                                                    style: TextStyle(
+                                                        color: ColorResources.black,
+                                                        fontWeight: FontWeight.bold)),
+
+                                              ),
+                                              Text("QTY: ${webViewProvider.orderDetailsModelList[0].data.product[0].quantity==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].quantity}",
+
+                                                  style: TextStyle(
+                                                      color: Colors.black54,
+                                                      fontWeight: FontWeight.w500)),
+                                            ],
+                                          ),
+                                          Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount==null?"":webViewProvider.orderDetailsModelList[0].data.product[0].totalAmount}",
+                                              style: TextStyle(
+                                                  color: ColorResources.black,
+                                                  fontWeight: FontWeight.w500)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Sub total",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.subTotal==null?"":webViewProvider.orderDetailsModelList[0].data.order.subTotal}",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Shipping cost",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.shippingCost==null?"":webViewProvider.orderDetailsModelList[0].data.order.shippingCost}",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Total",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.totalPayment==null?"":webViewProvider.orderDetailsModelList[0].data.order.totalPayment}",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Paid",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.bold)),
+                                Text("Rs. ${webViewProvider.orderDetailsModelList[0].data.order.paidAmount==null?"":webViewProvider.orderDetailsModelList[0].data.order.paidAmount}",
+                                    style: TextStyle(
+                                        color: ColorResources.black,
+                                        fontSize: 15,
+                                        letterSpacing: 0.5,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
 
 
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           )),
         ),
