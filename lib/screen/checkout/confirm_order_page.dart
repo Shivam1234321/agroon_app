@@ -15,6 +15,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import 'upi_payment_page.dart';
 class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({Key key}) : super(key: key);
 
@@ -99,6 +101,42 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
      }
 
+  _proceed1(String partialpaymentamount,String paymentType,String totalAmount,String coupondiscountAmount)async{
+    if(yes == true){
+      setState(() {
+        _isLoading = true;
+      });
+      await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, totalAmount, coupondiscountAmount);
+      setState(() {
+        _isLoading = false;
+      });
+      double tm = double.parse(totalAmount);
+      double  pri = double.parse(_price.text.isEmpty?"0":_price.text);
+      Get.to(UPIPAYMENTPage(),arguments:pri==0.0?(tm):pri,
+        transition: Transition.rightToLeft,
+        duration: Duration(milliseconds: 400),
+      );
+    }else
+    {
+      if(_formKey.currentState.validate()) {
+        setState(() {
+          _isLoading = true;
+        });
+        await Provider.of<WebViewProvider>(context, listen: false).orderapi(_couponController.text.isNull ? "" : _couponController.text, partialpaymentamount, paymentType, totalAmount, coupondiscountAmount);
+        setState(() {
+          _isLoading = false;
+        });
+        double tm = double.parse(totalAmount);
+        double  pri = double.parse(_price.text.isEmpty?"0":_price.text);
+        Get.to(UPIPAYMENTPage(),arguments:pri==0.0?(tm):pri,
+          transition: Transition.rightToLeft,
+          duration: Duration(milliseconds: 400),
+        );
+      }
+    }
+
+  }
+
   @override
   void initState() {
     super.initState();
@@ -131,7 +169,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         'wallets': ['paytm']
       }
     };
-
     try {
       _razorpay.open(options);
     } catch (e) {
@@ -274,17 +311,101 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   SizedBox(height: 30),
                   _paymentmethod(),
                   SizedBox(height: 70),
-                  _isLoading==true?
-                      Center(child: CircularProgressIndicator())
-                  :Consumer<WebViewProvider>(
+                  Consumer<WebViewProvider>(
                     builder: (context,webViewProvider,child)=>
                     webViewProvider.getPartialDeductionAmountModelList==null?
                     Text("")
                         : InkWell(
                         onTap: () async{
-                         await _proceed(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partial",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
-                          // await SharedPrefManager.savePrefString(AppConstants.ADDRESSID, addressProvider.getAddressDataList[selectedtab].addressId.toString());
+                         // await SharedPrefManager.savePrefString(AppConstants.ADDRESSID, addressProvider.getAddressDataList[selectedtab].addressId.toString());
                          // _price.text=="";
+                       await  Get.defaultDialog(
+                           radius: 10,
+                           contentPadding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 30.0),
+                           titlePadding: EdgeInsets.only(top: 20.0),
+                           backgroundColor: Colors.white,
+                           title: "Payment Mode",
+                           titleStyle: TextStyle(
+                               fontSize: 15,
+                               fontWeight: FontWeight.bold),
+                           content: Row(
+                             mainAxisAlignment:
+                             MainAxisAlignment.spaceAround,
+                             children: [
+                               Expanded(
+                                      flex: 1,
+                                     child: InkWell(
+                                     onTap: () async{
+                                       await _proceed(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partial",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
+                                       // SharedPrefManager.clearPrefs();
+                                       // Get.back();
+                                       // Get.snackbar("Logout",
+                                       //     "Successfully");
+                                     },
+                                     child: Center(
+                                       child: Container(
+                                           decoration: BoxDecoration(
+                                               gradient: LinearGradient(colors: [
+                                                 ColorResources.green,
+                                                 ColorResources.darkgreen,
+                                               ]),
+                                               borderRadius:
+                                               BorderRadius
+                                                   .circular(
+                                                   10)),
+                                           child: Padding(
+                                             padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 10.0),
+                                             child: Center(
+                                                 child: Text(
+                                                   "Online Payment",
+                                                   style: TextStyle(
+                                                     fontSize: 12,
+                                                     color: Colors.white,
+                                                     fontWeight:
+                                                     FontWeight.bold,
+                                                   ),
+                                                 )),
+                                           )),
+                                     )),
+                                   ),
+                               SizedBox(width: 10,),
+                               Expanded(
+                                 flex: 1,
+                                 child: InkWell(
+                                     onTap: () async{
+                                       await _proceed1(_price.text.isEmpty ? "0" :_price.text,_price.text.isEmpty ? "Full" : "Partial",cartProvider.showCartDataList[0].totalamount.toString(),webViewProvider.checkCouponModelList.isNull?"":webViewProvider.checkCouponModelList[0].data.totalDiscountAmount.toString());
+
+                                     },
+                                     child: Center(
+                                       child: Container(
+                                           decoration: BoxDecoration(
+                                               gradient: LinearGradient(colors: [
+                                                 ColorResources.green,
+                                                 ColorResources.darkgreen,
+
+                                               ]),
+                                               borderRadius:
+                                               BorderRadius
+                                                   .circular(
+                                                   10)),
+                                           child: Padding(
+                                             padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 5.0),
+                                             child: Center(
+                                                 child: Text(
+                                                   "UPI Payment",
+                                                   style: TextStyle(
+                                                     fontSize: 12,
+                                                     color: Colors.white,
+                                                     fontWeight:
+                                                     FontWeight.bold,
+                                                   ),
+                                                 )),
+                                           )),
+                                     )),
+                               ),
+                             ],
+                           ),
+                         );
                         },
                         child: Center(
                           child: Container(

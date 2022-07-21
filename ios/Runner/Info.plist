@@ -16,6 +16,14 @@
 	<string>agroon</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>LSApplicationCategoryType</key>
+    <string></string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+    <string>phonepe</string>
+    <string>tez</string>
+    <string>paytm</string>
+    </array>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

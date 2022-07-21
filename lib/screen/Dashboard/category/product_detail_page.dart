@@ -122,7 +122,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child:Column(
               children: [
                 GFCarousel(
-                  pagination: true,
+                  hasPagination: true,
                   height: Get.height / 2,
                   pagerSize: 10.0,
                   autoPlay: false,

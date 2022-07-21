@@ -590,7 +590,7 @@ class _HomePageState extends State<HomePage> {
       walkthrowProvider.splashModelList==null
           ? Text("")
           : GFCarousel(
-          pagination: true,
+          hasPagination: true,
           height: 190,
           pagerSize: 10.0,
           autoPlay: true,

@@ -130,11 +130,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.keyboard_arrow_left_outlined,
+              icon: const Icon(Icons.keyboard_arrow_left_outlined,
                   color: ColorResources.darkgreen, size: 28)),
           centerTitle: true,
           backgroundColor: Colors.white,
-          title: Text("Edit Profile",
+          title: const Text("Edit Profile",
               style: TextStyle(
                 fontSize: 15,
                 letterSpacing: 1,
@@ -174,7 +174,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100.0),
                         ),
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                             radius: 50,
                             backgroundColor: ColorResources.white,
                             child: Icon(Icons.person,color:ColorResources.black,size: 60,),
@@ -212,102 +212,69 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
                     Container(
                       height: 70,
+                      // width: Get.width,
                       child: Consumer<AuthProvider>(
                         builder: (context, authProvider, child) =>
                         authProvider.showstatesModelList==null
-                            ?Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 5,
-                          child: Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
-                                      child: Icon(Icons.location_on, color: Colors.black),
-                                    ),
-                                    width: 30,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 9,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 5),
-                                    child: Text('${dataGetProfile.state==null?"State":dataGetProfile.state}',
-                                        style: TextStyle(
-                                          color: ColorResources.black,
-                                          fontSize: 15,
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
+                            ?Text("")
                             :
                         Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               elevation: 5,
-                              child: Expanded(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10.0),
-                                            child: Icon(Icons.location_on, color: Colors.black),
-                                          ),
-                                      width: 30,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 9,
-                                      child: Container(
-                                        // width: Get.width,
-                                        child: DropdownButton<dynamic>(
-                                          underline: SizedBox(),
-                                          isExpanded: true,
-                                          hint: Padding(
-                                            padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 5),
-                                            child: Text('${dataGetProfile.state==null?_sta.isNull?"State":_sta:dataGetProfile.state}',
-                                                style: TextStyle(
-                                                  color: ColorResources.black,
-                                                  fontSize: 15,
-                                                )),
-                                          ), // Not necessary for Option 1
-                                          value: _sta,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _sta =  newValue;
-                                            });
-                                          },
-                                          items: authProvider.showstatesModelList[0].date.map((item) {
-                                            return DropdownMenuItem(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 5),
-                                                child: Text(item.toString(),
-                                                    style: TextStyle(
-                                                      // color: ColorResources.darkgreen,
-                                                      fontSize: 15,
-                                                      // letterSpacing: 0.5,
-                                                      // fontWeight: FontWeight.bold,
-                                                    )),
-                                              ),
-                                              value: item,
-                                            );
-                                          }).toList(),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: Icon(Icons.location_on, color: Colors.black),
                                         ),
+                                    width: 30,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 9,
+                                    child: Container(
+                                      // width: Get.width,
+                                      child: DropdownButton<dynamic>(
+                                        underline: SizedBox(),
+                                        isExpanded: true,
+                                        hint: Padding(
+                                          padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 5),
+                                          child: Text('${dataGetProfile.state==null?_sta.isNull?"State":_sta:dataGetProfile.state}',
+                                              style: TextStyle(
+                                                color: ColorResources.black,
+                                                fontSize: 15,
+                                              )),
+                                        ), // Not necessary for Option 1
+                                        value: _sta,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _sta =  newValue;
+                                          });
+                                        },
+                                        items: authProvider.showstatesModelList[0].date.map((item) {
+                                          return DropdownMenuItem(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 10.0,top: 5,bottom: 5),
+                                              child: Text(item.toString(),
+                                                  style: TextStyle(
+                                                    // color: ColorResources.darkgreen,
+                                                    fontSize: 15,
+                                                    // letterSpacing: 0.5,
+                                                    // fontWeight: FontWeight.bold,
+                                                  )),
+                                            ),
+                                            value: item,
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                       ),
